@@ -49,5 +49,17 @@
       "Corporate Power"
     ],
     "status": "ready_for_review"
+  },
+  {
+    "topic": "The first stock exchange in Amsterdam",
+    "title": "Amsterdam's Birthplace",
+    "description": "Discover the origins of the world's first stock exchange in Amsterdam, a city that pioneered modern finance. Learn how this innovative marketplace shaped the global economy. From humble beginnings to a financial powerhouse, Amsterdam's story is one of ingenuity and progress.",
+    "tags": [
+      "stock exchange",
+      "Amsterdam",
+      "finance",
+      "history"
+    ],
+    "status": "ready_for_review"
   }
 ]
