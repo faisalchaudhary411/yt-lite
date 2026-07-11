@@ -86,5 +86,17 @@
       "Holland"
     ],
     "status": "ready_for_review"
+  },
+  {
+    "topic": "The tulip mania bubble of 1637",
+    "title": "Tulip Mania",
+    "description": "Explore the first recorded economic bubble in history, the tulip mania of 1637, where tulip bulbs became a coveted commodity in the Netherlands. This phenomenon led to extreme speculation and eventual financial collapse. Learn about the causes and consequences of this historic event.",
+    "tags": [
+      "Tulip Mania",
+      "Economic Bubble",
+      "History of Finance",
+      "Netherlands"
+    ],
+    "status": "ready_for_review"
   }
 ]
