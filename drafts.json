@@ -61,5 +61,17 @@
       "history"
     ],
     "status": "ready_for_review"
+  },
+  {
+    "topic": "The tulip mania bubble of 1637",
+    "title": "Tulip Mania",
+    "description": "In 1637, a rare flower sparked a frenzy that would change the course of history. The tulip mania bubble was a financial phenomenon that engulfed the Netherlands, leaving a trail of devastation in its wake. Join us as we explore the events that led to this catastrophic bubble.",
+    "tags": [
+      "Tulip Mania",
+      "Financial Bubble",
+      "Netherlands",
+      "1637"
+    ],
+    "status": "ready_for_review"
   }
 ]
