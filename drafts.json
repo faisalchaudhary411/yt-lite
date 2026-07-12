@@ -161,5 +161,24 @@
       "Corporate Power"
     ],
     "status": "ready_for_review"
+  },
+  {
+    "topic": "East India Company documentary type A Company literally owns a country",
+    "title": "How the East India Company Became a Nation: Power, Profit & Empire",
+    "description": "Explore how the East India Company transformed from a trading guild into a sovereign power that ruled vast territories, collected taxes, and shaped modern finance. Discover the tactics, battles, and economic genius behind a corporation that literally owned a country.",
+    "tags": [
+      "East India Company",
+      "history documentary",
+      "colonial empire",
+      "corporate power",
+      "British history",
+      "financial history",
+      "imperialism",
+      "WealthThroughAges",
+      "historical finance",
+      "colonial trade"
+    ],
+    "status": "ready_for_review",
+    "upload_error": "No YouTube auth on file. Visit https://yt-automation--faisalaslam101.replit.app/oauth2callback/authorize once to connect your channel."
   }
 ]
