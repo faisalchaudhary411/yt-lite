@@ -226,5 +226,17 @@
     ],
     "status": "ready_for_review",
     "upload_error": "No YouTube auth on file. Visit https://yt-automation--faisalaslam101.replit.app/oauth2callback/authorize once to connect your channel."
+  },
+  {
+    "topic": "The dajjal story",
+    "title": "دجال کا خوفناک قصہ",
+    "description": "دجال کی کہانی سنیں اور جانئیں کہ وہ کون تھا اور اس کا انجام کیا ہوا۔ دجال کی داستان ایک ایسی داستان ہے جو آپ کو سوچنے پر مجبور کر دے گی۔",
+    "tags": [
+      "دجال",
+      "اسلامی تاریخ",
+      "داستان"
+    ],
+    "status": "ready_for_review",
+    "upload_error": "No YouTube auth on file. Visit https://yt-automation--faisalaslam101.replit.app/oauth2callback/authorize once to connect your channel."
   }
 ]
