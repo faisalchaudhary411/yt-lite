@@ -213,5 +213,18 @@
     ],
     "status": "ready_for_review",
     "upload_error": "No YouTube auth on file. Visit https://yt-automation--faisalaslam101.replit.app/oauth2callback/authorize once to connect your channel."
+  },
+  {
+    "topic": "The dajjal story",
+    "title": "داژجل کی کہانی",
+    "description": "اس ویڈیو میں ہم داججل کی کہانی پر بات کریں گے، جو اکثر اسلامی پیشگوئیوں میں ذکر کی جاتی ہے۔ داججل کون ہے اور وہ دنیا کے لیے کیا خطرہ ہے؟ ہماری ویڈیو دیکھیں اور جانئیے۔",
+    "tags": [
+      "داژجل",
+      "اسلامی پیشگوئی",
+      "دنیا کا خاتمہ",
+      "akhir uz zaman"
+    ],
+    "status": "ready_for_review",
+    "upload_error": "No YouTube auth on file. Visit https://yt-automation--faisalaslam101.replit.app/oauth2callback/authorize once to connect your channel."
   }
 ]
