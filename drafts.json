@@ -180,5 +180,20 @@
     ],
     "status": "ready_for_review",
     "upload_error": "No YouTube auth on file. Visit https://yt-automation--faisalaslam101.replit.app/oauth2callback/authorize once to connect your channel."
+  },
+  {
+    "topic": "The dajjal story",
+    "title": "Dajjal Unveiled",
+    "description": "Uncover the mysterious figure of Dajjal, a tale of deception and prophecy that has captivated believers for centuries. Join us as we delve into the ancient stories and uncover the truth behind the legend. From Islamic eschatology to modern interpretations, we explore it all.",
+    "tags": [
+      "Dajjal",
+      "Islamic Eschatology",
+      "Antichrist",
+      "Prophecy",
+      "Deception",
+      "WealthThroughAges"
+    ],
+    "status": "ready_for_review",
+    "upload_error": "No YouTube auth on file. Visit https://yt-automation--faisalaslam101.replit.app/oauth2callback/authorize once to connect your channel."
   }
 ]
