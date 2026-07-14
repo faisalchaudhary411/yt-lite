@@ -238,5 +238,19 @@
     ],
     "status": "ready_for_review",
     "upload_error": "No YouTube auth on file. Visit https://yt-automation--faisalaslam101.replit.app/oauth2callback/authorize once to connect your channel."
+  },
+  {
+    "topic": "The Tajj Story",
+    "title": "تاج کا रहسہ",
+    "description": "تاج کمپنی کی کہانی، کامیابی اور تنازعات کے ساتھ، ایک عجیب سی داستان ہے۔ ہم تاج کمپنی کے عروج اور زوال کا جائزہ لیں گے۔ کیا تاج کمپنی کی کہانی سے ہمیں کچھ سیکھنے کو ملے گا؟",
+    "tags": [
+      "تاج کمپنی",
+      "کامیابی کی کہانی",
+      "تنازعات",
+      "مارکیٹ",
+      "انویسٹ"
+    ],
+    "status": "ready_for_review",
+    "upload_error": "No YouTube auth on file. Visit https://yt-automation--faisalaslam101.replit.app/oauth2callback/authorize once to connect your channel."
   }
 ]
