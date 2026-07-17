@@ -428,5 +428,33 @@
     "thumbnail_url": "/output/014bc1a44858/thumbnail.jpg",
     "status": "ready_for_review",
     "upload_error": "No YouTube auth on file. Visit https://yt-automation--faisalaslam101.replit.app/oauth2callback/authorize once to connect your channel."
+  },
+  {
+    "job_id": "68c861881d95",
+    "topic": "The Trader Who Bankrupted a 233-Year-Old Bank",
+    "language": "en",
+    "title": "Nick Leeson: How One Trader Crushed a 233-Year-Old Bank",
+    "description": "In 1995 Nick Leeson's rogue trades erased £827 million, forcing the 233‑year‑old Barings Bank to sell for a symbolic £1. Discover how a hidden error account and a single unchecked trader toppled a royal institution.\n\nChapters:\n0:00 Intro\n1:22 The Hidden Account\n2:42 The Aftermath\n4:41 The Reckoning\n\nSubscribe to WealthThroughAges for more stories like this.\n\n#NickLeeson #BaringsBankcollapse #financialscandal",
+    "tags": [
+      "Nick Leeson",
+      "Barings Bank collapse",
+      "financial scandal",
+      "derivatives trading",
+      "risk management",
+      "1995",
+      "Nikkei 225",
+      "Japanese earthquake",
+      "banking history",
+      "financial crime",
+      "nick",
+      "leeson",
+      "trader",
+      "year",
+      "bank"
+    ],
+    "srt_url": "/output/68c861881d95/subtitles.srt",
+    "thumbnail_url": "/output/68c861881d95/thumbnail.jpg",
+    "status": "ready_for_review",
+    "upload_error": "No YouTube auth on file. Visit https://yt-automation--faisalaslam101.replit.app/oauth2callback/authorize once to connect your channel."
   }
 ]
