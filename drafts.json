@@ -456,5 +456,33 @@
     "thumbnail_url": "/output/68c861881d95/thumbnail.jpg",
     "status": "ready_for_review",
     "upload_error": "No YouTube auth on file. Visit https://yt-automation--faisalaslam101.replit.app/oauth2callback/authorize once to connect your channel."
+  },
+  {
+    "job_id": "8acefb03272c",
+    "topic": "The Trader Who Bankrupted a 233-Year-Old Bank",
+    "language": "en",
+    "title": "Nick Leeson: How One Trader Crushed a 233‑Year‑Old Bank",
+    "description": "In 1995 a single rogue trader erased £827 million and forced Britain's oldest merchant bank to sell for £1. The story of Nick Leeson's secret account, the Kobe quake, and the lessons that still haunt risk managers today.\n\nChapters:\n0:00 Intro\n1:03 The Aftermath\n2:05 The Hidden Account\n2:59 The Reckoning\n4:29 The Fallout\n\nSubscribe to WealthThroughAges for more stories like this.\n\n#NickLeeson #BaringsBank #financialscandal",
+    "tags": [
+      "Nick Leeson",
+      "Barings Bank",
+      "financial scandal",
+      "derivatives trading",
+      "risk management",
+      "1995 collapse",
+      "Kobe earthquake",
+      "banking history",
+      "financial fraud",
+      "trading disaster",
+      "nick",
+      "leeson",
+      "trader",
+      "bank",
+      "crushed"
+    ],
+    "srt_url": "/output/8acefb03272c/subtitles.srt",
+    "thumbnail_url": "/output/8acefb03272c/thumbnail.jpg",
+    "status": "ready_for_review",
+    "upload_error": "No YouTube auth on file. Visit https://yt-automation--faisalaslam101.replit.app/oauth2callback/authorize once to connect your channel."
   }
 ]
