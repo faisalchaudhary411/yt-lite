@@ -506,5 +506,28 @@
     "thumbnail_url": "/output/256b30696cf3/thumbnail.jpg",
     "status": "ready_for_review",
     "upload_error": "No YouTube auth on file. Visit https://yt-automation--faisalaslam101.replit.app/oauth2callback/authorize once to connect your channel."
+  },
+  {
+    "job_id": "4cbbe91df95d",
+    "topic": "The South Sea Bubble: Britain's First Stock Market Crash",
+    "language": "ur",
+    "title": "ساؤتھ سی ببل: برطانیہ کی پہلی اسٹاک مارکیٹ کریش",
+    "description": "1720 میں ساؤتھ سی کمپنی نے قومی قرضے کے بدلے سٹاک جاری کر کے سب کو دھوکہ دہی کا پیک بنادیا۔ قیمتیں جنوری میں £128 سے آگے بڑھ کر اگست میں £1,000 سے زیادہ ہوئیں، پھر سال کے آخر تک £150 سے نیچے گر گئیں۔ اس کریش نے آئیزک نیوٹن سمیت کئی امیر افراد کے ہاتھ سے لاکھوں پاؤنڈ چھین لئے۔\n\nChapters:\n0:00 Intro\n1:47 آثار\n3:34 گراوٹ\n4:37 پریشانی\n\nSubscribe to WealthThroughAges for more stories like this.",
+    "tags": [
+      "ساؤتھ سی ببل",
+      "برطانیہ",
+      "اسٹاک مارکیٹ",
+      "1720",
+      "آئیزک نیوٹن",
+      "مالیاتی بحران",
+      "سرمایہ کاری",
+      "تاریخی واقعات",
+      "مالیات",
+      "سرمایہ کاری تاریخ"
+    ],
+    "srt_url": "/output/4cbbe91df95d/subtitles.srt",
+    "thumbnail_url": "/output/4cbbe91df95d/thumbnail.jpg",
+    "status": "ready_for_review",
+    "upload_error": "No YouTube auth on file. Visit https://yt-automation--faisalaslam101.replit.app/oauth2callback/authorize once to connect your channel."
   }
 ]
