@@ -484,5 +484,27 @@
     "thumbnail_url": "/output/8acefb03272c/thumbnail.jpg",
     "status": "ready_for_review",
     "upload_error": "No YouTube auth on file. Visit https://yt-automation--faisalaslam101.replit.app/oauth2callback/authorize once to connect your channel."
+  },
+  {
+    "job_id": "256b30696cf3",
+    "topic": "The Trader Who Bankrupted a 233-Year-Old Bank",
+    "language": "ur",
+    "title": "233 سال پرانی بینک کو تباہ کرنے والا ٹریڈر: نک لیسون کی ڈرامائی کہانی",
+    "description": "یہ ویڈیو آپ کو دکھائے گی کہ کیسے ایک نوجوان ٹریڈر نے برطانیہ کے سب سے پرانے بینک کو ایک ہفتے میں ختم کر دیا۔ نک لیسون کی غلطیاں، پوشیدہ اکاؤنٹ اور 1995 کی کوبے زلزلے کی تباہی کو آپ کے سامنے لاتے ہیں۔\n\nChapters:\n0:00 Intro\n2:02 سبق\n4:18 سبقِ نیا\n\nSubscribe to WealthThroughAges for more stories like this.\n\n#Barings #NickLeeson #financialcrisis",
+    "tags": [
+      "Barings",
+      "Nick Leeson",
+      "financial crisis",
+      "risk management",
+      "derivatives",
+      "Singapore",
+      "Nikkei",
+      "1995",
+      "bank collapse"
+    ],
+    "srt_url": "/output/256b30696cf3/subtitles.srt",
+    "thumbnail_url": "/output/256b30696cf3/thumbnail.jpg",
+    "status": "ready_for_review",
+    "upload_error": "No YouTube auth on file. Visit https://yt-automation--faisalaslam101.replit.app/oauth2callback/authorize once to connect your channel."
   }
 ]
