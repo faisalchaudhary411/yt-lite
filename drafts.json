@@ -557,5 +557,26 @@
     "thumbnail_url": "/output/046430743906/thumbnail.jpg",
     "status": "ready_for_review",
     "upload_error": "No YouTube auth on file. Visit https://yt-automation--faisalaslam101.replit.app/oauth2callback/authorize once to connect your channel."
+  },
+  {
+    "job_id": "d6ef0cde65a5",
+    "topic": "East India Company A Company literally owns a country",
+    "language": "ur",
+    "title": "ایسٹ انڈیا کمپنی: تجارت سے ملک تک کی شاندار سلطنت",
+    "description": "ہم اس ویڈیو میں ایسٹ انڈیا کمپنی کی شروعات، اپنی فوج کے ذریعے ہندوستان کی جیت اور ۲۲ لاکھ روپے کے منافع تک کے کلیدی واقعات پر روشنی ڈالیں گے۔ دیکھیں کیسے ایک تجارتی ہاؤس نے پورے ملک کا حکمران بن کر تاریخ بدل دی۔\n\nChapters:\n0:00 Intro\n1:18 برطانوی راج\n2:40 عالمی طاقت\n3:45 حکومت کا نیا دور\n5:06 قوت کا ارتقاء\n\nSubscribe to WealthThroughAges for more stories like this.\n\n#EastIndiaCompany #BritishEmpire #history",
+    "tags": [
+      "East India Company",
+      "British Empire",
+      "history",
+      "finance",
+      "colonialism",
+      "spice trade",
+      "India",
+      "colonial history"
+    ],
+    "srt_url": "/output/d6ef0cde65a5/subtitles.srt",
+    "thumbnail_url": "/output/d6ef0cde65a5/thumbnail.jpg",
+    "status": "ready_for_review",
+    "upload_error": "400 Client Error: Bad Request for url: https://oauth2.googleapis.com/token"
   }
 ]
