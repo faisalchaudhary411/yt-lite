@@ -529,5 +529,33 @@
     "thumbnail_url": "/output/4cbbe91df95d/thumbnail.jpg",
     "status": "ready_for_review",
     "upload_error": "No YouTube auth on file. Visit https://yt-automation--faisalaslam101.replit.app/oauth2callback/authorize once to connect your channel."
+  },
+  {
+    "job_id": "046430743906",
+    "topic": "The South Sea Bubble: Britain's First Stock Market Crash",
+    "language": "en",
+    "title": "The South Sea Bubble: How a 1720 Stock Crash Shook Britain",
+    "description": "From a government‑backed trading charter to a frenzy that sent shares soaring from £128 to over £1,000 in months, the South Sea Bubble became Britain’s first stock market disaster. We follow the scheme, the mania, the warning signs, and the collapse that even humbled Isaac Newton.\n\nChapters:\n0:00 Intro\n1:37 The Inquiry\n4:02 The Reforms\n5:25 Aftermath\n\nSubscribe to WealthThroughAges for more stories like this.\n\n#SouthSeaBubble #1720crash #Britishfinancehistory",
+    "tags": [
+      "South Sea Bubble",
+      "1720 crash",
+      "British finance history",
+      "stock market bubble",
+      "Isaac Newton",
+      "financial crisis",
+      "debt for stock",
+      "historical speculation",
+      "British economic history",
+      "bubble act",
+      "south",
+      "bubble",
+      "stock",
+      "britain",
+      "crash"
+    ],
+    "srt_url": "/output/046430743906/subtitles.srt",
+    "thumbnail_url": "/output/046430743906/thumbnail.jpg",
+    "status": "ready_for_review",
+    "upload_error": "No YouTube auth on file. Visit https://yt-automation--faisalaslam101.replit.app/oauth2callback/authorize once to connect your channel."
   }
 ]
