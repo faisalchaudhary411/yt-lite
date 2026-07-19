@@ -578,5 +578,26 @@
     "thumbnail_url": "/output/d6ef0cde65a5/thumbnail.jpg",
     "status": "ready_for_review",
     "upload_error": "400 Client Error: Bad Request for url: https://oauth2.googleapis.com/token"
+  },
+  {
+    "job_id": "236e5e788bed",
+    "topic": "East India Company A Company literally owns a country",
+    "language": "ur",
+    "title": "ایسٹ انڈیا کمپنی: کمپنی سے ملک تک کا سفر",
+    "description": "یہ دستاویزی ویڈیو ایست انڈیا کمپنی کے عروج و زوال کو تین اہم ابواب میں پیش کرتی ہے۔ ہم اس کی ذاتی فوج، ہندوستان پر قبضے اور مالیاتی طاقت کے حیران کن اعداد و شمار دیکھتے ہیں۔\n\nChapters:\n0:00 Intro\n1:27 فوج کا عروج\n3:03 سرکاری قبضہ\n5:06 قحط کا عروج\n\nSubscribe to WealthThroughAges for more stories like this.\n\n#EastIndiaCompany #BritishEmpire #colonialhistory",
+    "tags": [
+      "East India Company",
+      "British Empire",
+      "colonial history",
+      "spice trade",
+      "historical finance",
+      "company army",
+      "colonial India",
+      "historical empire"
+    ],
+    "srt_url": "/output/236e5e788bed/subtitles.srt",
+    "thumbnail_url": "/output/236e5e788bed/thumbnail.jpg",
+    "status": "ready_for_review",
+    "upload_error": "400 Client Error: Bad Request for url: https://oauth2.googleapis.com/token"
   }
 ]
