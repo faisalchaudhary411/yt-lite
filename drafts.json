@@ -647,5 +647,25 @@
     "thumbnail_url": "/output/e458cc85910a/thumbnail.jpg",
     "status": "ready_for_review",
     "upload_error": "400 Client Error: Bad Request for url: https://oauth2.googleapis.com/token"
+  },
+  {
+    "job_id": "c9f4cf3d8b9a",
+    "topic": "How the Ottomans Taxed Their Way to an Empire",
+    "language": "ur",
+    "title": "اُسمانی سلطنت کی ٹیکس مشین: کیسے ایک راہ پر امارت بنائی",
+    "description": "آپ نے سنا ہوگا کہ عثمانیوں نے سِلک روڈ بند کر دی، لیکن اصل راز یہ ہے کہ انہوں نے اس راہ کو ٹیکس کے ذریعے سونے کی کھیتی میں تبدیل کر دیا۔ اس ویڈیو میں ہم دیکھیں گے کہ قسطنطنیہ کیسے ٹول بوٹ بن گیا اور اس کی ٹیکس مشین نے کیسے سلطنت کو طاقت اور عظمت دی۔\n\nChapters:\n0:00 Intro\n1:03 ٹیکس کی مشین\n2:09 آمدنی کا راز\n3:30 قوت کی تعمیر\n4:43 آخری گھنٹیاں\n\nSubscribe to WealthThroughAges for more stories like this.",
+    "tags": [
+      "اُسماں",
+      "ٹیکس",
+      "سلطنت",
+      "تاریخ",
+      "قسطنطنیہ",
+      "مالیاتی حکمتِ عملی",
+      "ڈسٹری بائی میتھ"
+    ],
+    "srt_url": "/output/c9f4cf3d8b9a/subtitles.srt",
+    "thumbnail_url": "/output/c9f4cf3d8b9a/thumbnail.jpg",
+    "status": "ready_for_review",
+    "upload_error": "400 Client Error: Bad Request for url: https://oauth2.googleapis.com/token"
   }
 ]
