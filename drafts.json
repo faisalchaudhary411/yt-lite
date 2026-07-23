@@ -619,5 +619,33 @@
     "thumbnail_url": "/output/a3c4b6b65bb1/thumbnail.jpg",
     "status": "ready_for_review",
     "upload_error": "400 Client Error: Bad Request for url: https://oauth2.googleapis.com/token"
+  },
+  {
+    "job_id": "e458cc85910a",
+    "topic": "The Roman Colosseum",
+    "language": "en",
+    "title": "How the Colosseum Shaped Empire and Economy",
+    "description": "Built in the first century AD, the Colosseum wasn't just a marvel of stone—it was a massive revenue engine for Rome, drawing tens of thousands of spectators nightly. We'll uncover how its construction, games, and ticketing system fed the imperial treasury and left a legacy that still echoes in modern stadium economics.\n\nChapters:\n0:00 Intro\n0:50 The Warning Ignored\n1:40 The Silent Decay\n\nSubscribe to WealthThroughAges for more stories like this.\n\n#RomanColosseum #ancientRome #Romanarchitecture",
+    "tags": [
+      "Roman Colosseum",
+      "ancient Rome",
+      "Roman architecture",
+      "gladiator games",
+      "ancient economy",
+      "historical finance",
+      "Roman engineering",
+      "Roman empire",
+      "ancient entertainment",
+      "stadium economics",
+      "colosseum",
+      "shaped",
+      "empire",
+      "economy",
+      "built"
+    ],
+    "srt_url": "/output/e458cc85910a/subtitles.srt",
+    "thumbnail_url": "/output/e458cc85910a/thumbnail.jpg",
+    "status": "ready_for_review",
+    "upload_error": "400 Client Error: Bad Request for url: https://oauth2.googleapis.com/token"
   }
 ]
