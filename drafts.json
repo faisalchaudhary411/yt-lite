@@ -667,5 +667,24 @@
     "thumbnail_url": "/output/c9f4cf3d8b9a/thumbnail.jpg",
     "status": "ready_for_review",
     "upload_error": "400 Client Error: Bad Request for url: https://oauth2.googleapis.com/token"
+  },
+  {
+    "job_id": "5b07fabfb5ef",
+    "topic": "How the Ottomans Taxed Their Way to an Empire",
+    "language": "ur",
+    "title": "اُسمانی سلطنت کا خفیہ ٹیکس مشین: بوسفورس سے عالمی دولت تک",
+    "description": "اس ویڈیو میں ہم دیکھیں گے کہ عثمانی سلطنت نے بوسفورس کے جال کو ٹیکس کے ذریعے عالمی دولت کا منبع کیسے بنایا اور اس کی ٹیکس مشین نے سلطنت کی تعمیر میں کیا کردار ادا کیا۔ ساتھ ہی مشہور 'سِلک روڈ بند' کے اساطیری کو نئی تحقیق کے ساتھ توڑ کر حقیقت پیش کریں گے۔\n\nChapters:\n0:00 Intro\n1:19 آمدنی کا مقام\n2:28 ٹیکس کی طاقت\n5:55 زوال کی دھواں\n\nSubscribe to WealthThroughAges for more stories like this.\n\n#OttomanEmpire #taxation #history",
+    "tags": [
+      "Ottoman Empire",
+      "taxation",
+      "history",
+      "Silk Road",
+      "economics",
+      "WealthThroughAges"
+    ],
+    "srt_url": "/output/5b07fabfb5ef/subtitles.srt",
+    "thumbnail_url": "/output/5b07fabfb5ef/thumbnail.jpg",
+    "status": "ready_for_review",
+    "upload_error": "400 Client Error: Bad Request for url: https://oauth2.googleapis.com/token"
   }
 ]
