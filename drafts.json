@@ -686,5 +686,26 @@
     "thumbnail_url": "/output/5b07fabfb5ef/thumbnail.jpg",
     "status": "ready_for_review",
     "upload_error": "400 Client Error: Bad Request for url: https://oauth2.googleapis.com/token"
+  },
+  {
+    "job_id": "2933b350bfae",
+    "topic": "Tulip Mania: Inside History's First Speculative Bubble",
+    "language": "ur",
+    "title": "ٹولپ مینی: ۱۶۳۷ میں پہلی مالی بلبلا اور اس کا عالمی سبق",
+    "description": "فروری ۱۶۳۷ میں ایک سِمپر آگو سٹس گلاب کا بلبلا ایک ہنر مند کاریگر کی دس سال کی تنخواہ سے بھی زیادہ قیمت پر بیچا گیا۔ اس ویڈیو میں ہم اس بلبلا کے اُبھار، اس کی تباہی اور اس سے سیکھے جانے والے مالی اسباق کو تفصیل سے دیکھیں گے۔\n\nChapters:\n0:00 Intro\n0:54 مارکیٹ کا جنون\n1:52 درسِ وقت\n4:34 پھولوں کی قیمت\n6:22 وقت کا سبق\n7:22 آج کا سبق\n\nSubscribe to WealthThroughAges for more stories like this.\n\n#TulipMania #History #Finance",
+    "tags": [
+      "Tulip Mania",
+      "History",
+      "Finance",
+      "1637",
+      "Dutch Golden Age",
+      "Speculative Bubble",
+      "Economic History"
+    ],
+    "srt_url": "/output/2933b350bfae/subtitles.srt",
+    "srt_state_path": "captions/2933b350bfae.srt",
+    "thumbnail_url": "/output/2933b350bfae/thumbnail.jpg",
+    "status": "ready_for_review",
+    "upload_error": "400 Client Error: Bad Request for url: https://oauth2.googleapis.com/token"
   }
 ]
