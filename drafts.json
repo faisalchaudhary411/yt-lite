@@ -728,5 +728,27 @@
     "thumbnail_url": "/output/2933b350bfae/thumbnail.jpg",
     "status": "ready_for_review",
     "upload_error": "400 Client Error: Bad Request for url: https://oauth2.googleapis.com/token"
+  },
+  {
+    "job_id": "2ca970fec502",
+    "topic": "Tulip Mania: Inside History's First Speculative Bubble",
+    "language": "ur",
+    "title": "ٹولپ مینی: پہلی مالی بلبلا کی حقیقت اور اس کے اسباق",
+    "description": "1637 میں ایک ٹولپ بلبلا نے ایک کاریگر کی دس سال کی تنخواہ سے بھی زیادہ قیمت پر فروخت ہونے کا ریکارڈ بنایا۔ یہ ویڈیو بتائے گی کہ کیسے ایک پھول نے ڈچ معاشرے کو جنون میں مبتلا کیا اور پھر کیسے یہ بلبلا ایک دن میں ٹوٹ گیا۔ آخر میں ہم اس سے سیکھنے والے مالی اسباق پر روشنی ڈالیں گے۔\n\nChapters:\n0:00 Intro\n1:01 The Mania\n2:09 The Lesson\n4:59 آمد\n6:47 بلا بلب کی لالچ\n8:01 سبق\n\nSubscribe to WealthThroughAges for more stories like this.\n\n#TulipMania #History #Finance",
+    "tags": [
+      "Tulip Mania",
+      "History",
+      "Finance",
+      "Speculative Bubble",
+      "Dutch Golden Age",
+      "Tulip",
+      "Economic History",
+      "Market Crash"
+    ],
+    "srt_url": "/output/2ca970fec502/subtitles.srt",
+    "srt_state_path": "captions/2ca970fec502.srt",
+    "thumbnail_url": "/output/2ca970fec502/thumbnail.jpg",
+    "status": "ready_for_review",
+    "upload_error": "400 Client Error: Bad Request for url: https://oauth2.googleapis.com/token"
   }
 ]
