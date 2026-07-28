@@ -782,5 +782,30 @@
     "video_id": "hTG852CvVqs",
     "preview_url": "https://youtube.com/watch?v=hTG852CvVqs",
     "upload_error": "400 Client Error: Bad Request for url: https://api.telegram.org/bot8980944153:AAHR4u65QpOYrCtpWkTBjHICmKA1wu4E21M/sendMessage"
+  },
+  {
+    "job_id": "676a42155836",
+    "topic": "How the Ottomans Taxed Their Way to an Empire",
+    "language": "ur",
+    "title": "اُسمانی سلطنت کی ٹیکس مشین: امپائر کی دولت کا راز",
+    "description": "کیا آپ نے کبھی سوچا کہ عثمانی سلطنت نے سِلک روڈ کو بند نہیں کیا بلکہ ہر قدم پر ٹیکس لگا کر ایک بے مثال دولت بنائی؟ اس ویڈیو میں ہم جانیں گے کہ کیسے قسطنطنیہ کی جغرافیائی پوزیشن نے انہیں ٹیکس کے چوک پوائنٹ میں بدل دیا اور اس سے ملنے والی آمدنی نے سلطنت کو کیسے عظمت کی بلندیوں پر پہنچایا۔\n\nChapters:\n0:00 Intro\n0:43 چوک پوائنٹ\n2:18 پیسہ کہاں گیا\n5:30 ٹیکس مشین\n7:07 مِتھ کی تکسید\n9:34 نئی امیدیں\n\nSubscribe to WealthThroughAges for more stories like this.\n\n#OttomanEmpire #taxation #history",
+    "tags": [
+      "Ottoman Empire",
+      "taxation",
+      "history",
+      "finance",
+      "Silk Road",
+      "Iltizam",
+      "Akçe",
+      "imperial architecture"
+    ],
+    "srt_url": "/output/676a42155836/subtitles.srt",
+    "srt_state_path": "captions/676a42155836.srt",
+    "extra_srt_state_paths": {},
+    "thumbnail_url": "/output/676a42155836/thumbnail.jpg",
+    "status": "pending_approval",
+    "video_id": "XF6bovCNRKk",
+    "preview_url": "https://youtube.com/watch?v=XF6bovCNRKk",
+    "upload_error": "400 Client Error: Bad Request for url: https://api.telegram.org/bot8980944153:AAHR4u65QpOYrCtpWkTBjHICmKA1wu4E21M/sendMessage"
   }
 ]
