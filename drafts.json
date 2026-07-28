@@ -807,5 +807,29 @@
     "video_id": "XF6bovCNRKk",
     "preview_url": "https://youtube.com/watch?v=XF6bovCNRKk",
     "upload_error": "400 Client Error: Bad Request for url: https://api.telegram.org/bot8980944153:AAHR4u65QpOYrCtpWkTBjHICmKA1wu4E21M/sendMessage"
+  },
+  {
+    "job_id": "78c2ad062fc0",
+    "topic": "1991: The Year India Pawned Its Gold to Survive",
+    "language": "ur",
+    "title": "1991: بھارت نے سونے کو رہن دیے، بحران سے نکلنے کی کہانی",
+    "description": "1991 میں بھارت کی حکومت نے ایک رازدارانہ آپریشن کے ذریعے 47 ٹن سونا بیرون ملک بھیج کر قرض کے collateral کے طور پر پیش کیا۔ یہ اقدام اس وقت کے شدید مالی بحران کا عکاس تھا، جب روپے کی ریزرو صرف دو ہفتے کی درآمدات کو ہی پورا کر رہی تھی۔ اس تجربے نے ہی 1991 کی اقتصادی لبرلائزیشن کی بنیاد رکھی، جس سے آج کا تیزی سے بڑھتا ہوا بھارتی معیشت وجود میں آیا۔\n\nChapters:\n0:00 Intro\n1:01 آخری گھنٹہ\n2:24 نئی شروعات\n4:28 بحالی کا موڑ\n5:52 اقتصادی انقلاب\n7:22 بحالی کا موڑ\n8:40 نئی شروعات\n\nSubscribe to WealthThroughAges for more stories like this.\n\n#India1991crisis #goldreserves #economicliberalization",
+    "tags": [
+      "India 1991 crisis",
+      "gold reserves",
+      "economic liberalization",
+      "Manmohan Singh",
+      "financial reforms",
+      "foreign exchange shortage",
+      "collateral"
+    ],
+    "srt_url": "/output/78c2ad062fc0/subtitles.srt",
+    "srt_state_path": "captions/78c2ad062fc0.srt",
+    "extra_srt_state_paths": {},
+    "thumbnail_url": "/output/78c2ad062fc0/thumbnail.jpg",
+    "status": "pending_approval",
+    "video_id": "gDEdq2BDGWk",
+    "preview_url": "https://youtube.com/watch?v=gDEdq2BDGWk",
+    "telegram_error": "400 Client Error: Bad Request for url: https://api.telegram.org/bot8980944153:AAHR4u65QpOYrCtpWkTBjHICmKA1wu4E21M/sendMessage"
   }
 ]
