@@ -831,5 +831,28 @@
     "video_id": "gDEdq2BDGWk",
     "preview_url": "https://youtube.com/watch?v=gDEdq2BDGWk",
     "telegram_error": "400 Client Error: Bad Request for url: https://api.telegram.org/bot8980944153:AAHR4u65QpOYrCtpWkTBjHICmKA1wu4E21M/sendMessage"
+  },
+  {
+    "job_id": "aae4688b3c8e",
+    "topic": "The Nizam of Hyderabad: The Richest Man in the World Who Hoarded His Fortune",
+    "language": "ur",
+    "title": "نظام حیدرآباد: دنیا کا سب سے امیر حکمران اور اس کی بچی ہوئی دولت",
+    "description": "وقت کے شمارے میں ۱۹۳۰ کی دہائی میں نظام حیدرآباد کو دنیا کا سب سے امیر آدمی قرار دیا گیا تھا، مگر وہ سادہ کپڑوں میں رہتے تھے۔ اس ویڈیو میں ہم اس کی بے مثال دولت، اس کی جمع شدگی اور تقسیم کے بعد کی قانونی جھگڑوں کو پانچ ایکٹ میں پیش کرتے ہیں۔ آخر میں سیکھیں کہ صرف دولت جمع کرنا ترقی نہیں لاتا۔\n\nChapters:\n0:00 Intro\n0:53 بچت\n1:51 سبق\n4:04 اختتام کا سامنا\n5:48 دولت کا جال\n6:49 آزادی کا ٹکراؤ\n\nSubscribe to WealthThroughAges for more stories like this.",
+    "tags": [
+      "نظام حیدرآباد",
+      "امیر ترین شخص",
+      "دولت",
+      "برطانوی ہند",
+      "تاریخ",
+      "مالیاتی"
+    ],
+    "srt_url": "/output/aae4688b3c8e/subtitles.srt",
+    "srt_state_path": "captions/aae4688b3c8e.srt",
+    "extra_srt_state_paths": {},
+    "thumbnail_url": "/output/aae4688b3c8e/thumbnail.jpg",
+    "status": "pending_approval",
+    "video_id": "esAAR5Z3gBM",
+    "preview_url": "https://youtube.com/watch?v=esAAR5Z3gBM",
+    "telegram_error": "400 Client Error: Bad Request for url: https://api.telegram.org/bot8980944153:AAHR4u65QpOYrCtpWkTBjHICmKA1wu4E21M/sendMessage"
   }
 ]
