@@ -750,5 +750,37 @@
     "thumbnail_url": "/output/2ca970fec502/thumbnail.jpg",
     "status": "ready_for_review",
     "upload_error": "400 Client Error: Bad Request for url: https://oauth2.googleapis.com/token"
+  },
+  {
+    "job_id": "e867e18d400b",
+    "topic": "How the Ottomans Taxed Their Way to an Empire",
+    "language": "en",
+    "title": "How Ottoman Taxes Turned Trade Into an Empire",
+    "description": "The fall of Constantinople in 1453 turned the city into the world's biggest toll booth, funneling silk, spices, and gold into the Ottoman treasury. We reveal the tax‑farming machine that minted empire‑building wealth and why the myth of a closed Silk Road couldn't be further from the truth.\n\nChapters:\n0:00 Intro\n0:31 The Chokepoint\n1:46 Where the Money Went\n4:22 The Unraveling\n7:00 The Treasury's Reach\n8:39 The Final Ledger\n\nSubscribe to WealthThroughAges for more stories like this.\n\n#OttomanEmpire #Taxation #SilkRoad",
+    "tags": [
+      "Ottoman Empire",
+      "Taxation",
+      "Silk Road",
+      "Ottoman trade",
+      "Iltizam",
+      "Ottoman economy",
+      "Historical finance",
+      "Constantinople fall",
+      "Ottoman military funding",
+      "Economic history",
+      "into",
+      "ottoman",
+      "turned",
+      "empire",
+      "silk"
+    ],
+    "srt_url": "/output/e867e18d400b/subtitles.srt",
+    "srt_state_path": "captions/e867e18d400b.srt",
+    "extra_srt_state_paths": {},
+    "thumbnail_url": "/output/e867e18d400b/thumbnail.jpg",
+    "status": "pending_approval",
+    "video_id": "hTG852CvVqs",
+    "preview_url": "https://youtube.com/watch?v=hTG852CvVqs",
+    "upload_error": "400 Client Error: Bad Request for url: https://api.telegram.org/bot8980944153:AAHR4u65QpOYrCtpWkTBjHICmKA1wu4E21M/sendMessage"
   }
 ]
