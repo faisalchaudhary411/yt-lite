@@ -854,5 +854,31 @@
     "video_id": "esAAR5Z3gBM",
     "preview_url": "https://youtube.com/watch?v=esAAR5Z3gBM",
     "telegram_error": "400 Client Error: Bad Request for url: https://api.telegram.org/bot8980944153:AAHR4u65QpOYrCtpWkTBjHICmKA1wu4E21M/sendMessage"
+  },
+  {
+    "job_id": "d67d8e3f644c",
+    "topic": "Dubai Gold, Bombay Smugglers: The Golden Route That Defied an Empire's Laws",
+    "language": "ur",
+    "title": "دوبئی گولڈ اور بمبئی سمگلرز: سلطنت کے قوانین سے بچا سونا",
+    "description": "1968 کے سونے کنٹرول ایکٹ نے بھارت میں سونے کی آمد کو سخت پابندیوں سے روک دیا، جس کے باعث دبئی کے آزاد بندرگاہ سے سمگلنگ کا ایک بڑا نیٹ ورک ابھرا۔ ڈھاؤ اور چھوٹے کشتیوں کے ذریعے سونے کے گنتے ٹن تک سمگل کیا جاتا تھا، اور ہولے کے نظام کے ذریعے ادائیگی بغیر کسی سرحدی ٹرانزیکشن کے ہوتی تھی۔ 1990 کی معاشی آزادیاں اور کم ڈیوٹی نے یہ سوداگرانہ راستہ ختم کر دیا، یہ دکھاتا ہے کہ پابندی صرف منافع کے تقسیم کار کو بدلتی ہے۔\n\nChapters:\n0:00 Intro\n1:35 سونے کی تجارت کا خاتمہ\n4:04 سونے کا جال\n5:19 قانونی جال\n6:43 نئی لہر\n9:12 آزاد مارکیٹ کی آمد\n\nSubscribe to WealthThroughAges for more stories like this.\n\n#goldsmuggling #Dubai #Bombay",
+    "tags": [
+      "gold smuggling",
+      "Dubai",
+      "Bombay",
+      "India",
+      "Gold Control Act",
+      "economic history"
+    ],
+    "srt_url": "/output/d67d8e3f644c/subtitles.srt",
+    "srt_state_path": "captions/d67d8e3f644c.srt",
+    "extra_srt_state_paths": {},
+    "thumbnail_url": "/output/d67d8e3f644c/thumbnail.jpg",
+    "status": "pending_approval",
+    "video_id": "hqT5PS0vnlY",
+    "preview_url": "https://youtube.com/watch?v=hqT5PS0vnlY",
+    "shorts_video_ids": [
+      "VQXmZ1ne91M"
+    ],
+    "telegram_error": "400 Client Error: Bad Request for url: https://api.telegram.org/bot8980944153:AAHR4u65QpOYrCtpWkTBjHICmKA1wu4E21M/sendMessage"
   }
 ]
