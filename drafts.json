@@ -934,5 +934,32 @@
       "CuXs55721GY"
     ],
     "telegram_error": "400 Client Error: Bad Request for url: https://api.telegram.org/bot8980944153:AAHR4u65QpOYrCtpWkTBjHICmKA1wu4E21M/sendMessage"
+  },
+  {
+    "job_id": "df1002be0a71",
+    "topic": "\"I Built a Full YouTube Automation Pipeline\"",
+    "language": "ur",
+    "title": "یوٹیوب ویڈیو بنانے کا مکمل آٹومیشن: ۱۰ گھنٹے سے ۲۰ منٹ میں",
+    "description": "میں نے ایک کمانڈ سے پورا یوٹیوب پروڈکشن خودکار کر دیا۔ اب ہر ویڈیو صرف ۲۰ منٹ میں تیار، اپلوڈ اور پرائیویٹ ہو جاتی ہے۔ اس کوڈ کے ساتھ آپ بھی وقت اور پیسے کی بچت کر سکتے ہیں۔\n\nChapters:\n0:00 Intro\n0:04 Part 1\n0:42 Part 2\n1:32 Part 3\n2:23 Part 4\n2:56 Part 5\n3:32 Part 6\n4:08 Part 7\n4:36 Part 8\n\nSubscribe to WealthThroughAges for more stories like this.",
+    "tags": [
+      "یوٹیوب آٹومیشن",
+      "پائپ لائن",
+      "آٹومیشن ٹولز",
+      "ویڈیو پروڈکشن",
+      "WealthThroughAges"
+    ],
+    "srt_url": "/output/df1002be0a71/subtitles.srt",
+    "srt_state_path": "captions/df1002be0a71.srt",
+    "extra_srt_state_paths": {},
+    "thumbnail_url": "/output/df1002be0a71/thumbnail.jpg",
+    "status": "pending_approval",
+    "video_id": "-Bx1RJixSsc",
+    "preview_url": "https://youtube.com/watch?v=-Bx1RJixSsc",
+    "shorts_video_ids": [
+      "wVeIjMYwwr4",
+      "OySi5uxapCY",
+      "de9M4WyHo4k"
+    ],
+    "telegram_error": "400 Client Error: Bad Request for url: https://api.telegram.org/bot8980944153:AAHR4u65QpOYrCtpWkTBjHICmKA1wu4E21M/sendMessage"
   }
 ]
