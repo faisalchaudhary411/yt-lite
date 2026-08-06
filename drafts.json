@@ -905,5 +905,34 @@
       "yM5DTWqDRn8"
     ],
     "telegram_error": "400 Client Error: Bad Request for url: https://api.telegram.org/bot8980944153:AAHR4u65QpOYrCtpWkTBjHICmKA1wu4E21M/sendMessage"
+  },
+  {
+    "job_id": "f9d9d65d3110",
+    "topic": "I Built a Full YouTube Automation Pipeline",
+    "language": "hi",
+    "title": "10 घंटे का काम 20 मिनट में! पूरा यूट्यूब ऑटोमेशन पाइपलाइन",
+    "description": "मैंने एक ऐसा पाइपलाइन बनाया जो स्क्रिप्ट से लेकर अपलोड तक सब कुछ एक कमांड में कर देता है। अब 10 घंटे लगने वाला काम सिर्फ 20 मिनट में पूरा, और लागत भी बहुत कम। इस वीडियो में मैं पूरा प्रोसेस और कीमतें दिखाता हूँ।\n\nChapters:\n0:00 Intro\n1:29 गणितीय बदलाव\n4:41 डेमो टाइम\n6:02 कोड का प्रवाह\n6:52 त्रुटि प्रबंधन\n7:31 समय की कीमत\n8:39 ऑटोमैटिक जादू\n\nSubscribe to WealthThroughAges for more stories like this.\n\n#YouTubeautomation #AIvideocreation #contentcreation",
+    "tags": [
+      "YouTube automation",
+      "AI video creation",
+      "content creation",
+      "automation pipeline",
+      "WealthThroughAges"
+    ],
+    "srt_url": "/output/f9d9d65d3110/subtitles.srt",
+    "srt_state_path": "captions/f9d9d65d3110.srt",
+    "extra_srt_state_paths": {
+      "en": "captions/f9d9d65d3110_en.srt"
+    },
+    "thumbnail_url": "/output/f9d9d65d3110/thumbnail.jpg",
+    "status": "pending_approval",
+    "video_id": "Qou5AqFhvwY",
+    "preview_url": "https://youtube.com/watch?v=Qou5AqFhvwY",
+    "shorts_video_ids": [
+      "FLt5kvD8iH8",
+      "8d5yr8k8Q10",
+      "CuXs55721GY"
+    ],
+    "telegram_error": "400 Client Error: Bad Request for url: https://api.telegram.org/bot8980944153:AAHR4u65QpOYrCtpWkTBjHICmKA1wu4E21M/sendMessage"
   }
 ]
