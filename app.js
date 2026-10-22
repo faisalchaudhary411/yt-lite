@@ -1,7 +1,7 @@
 /* CineBox - movie & TV discovery site (TMDB + Internet Archive) */
 
 // 1) Get a free key at https://www.themoviedb.org/settings/api  (use the "API Key (v3 auth)")
-const API_KEY = "287598b45b83e34757c15c1f9baf343c";
+const API_KEY = "PASTE_YOUR_TMDB_API_KEY_HERE";
 
 const API = "https://api.themoviedb.org/3";
 const IMG = "https://image.tmdb.org/t/p/";
@@ -29,6 +29,36 @@ function addHistory(item) {
   let h = load(LS_HIST).filter(x => !(x.id === item.id && x.type === item.type));
   h.unshift(item);
   save(LS_HIST, h.slice(0, 30));
+}
+
+/* ---------- continue watching + region ---------- */
+const LS_PROG = "cinebox_progress";
+const LS_REGION = "cinebox_region";
+function progAll() { try { return JSON.parse(localStorage.getItem(LS_PROG)) || {}; } catch (e) { return {}; } }
+function progSet(id, obj) {
+  const a = progAll();
+  if (obj) a[id] = obj; else delete a[id];
+  try { localStorage.setItem(LS_PROG, JSON.stringify(a)); } catch (e) {}
+}
+const REGIONS = [["PK", "Pakistan"], ["US", "United States"], ["GB", "United Kingdom"], ["IN", "India"], ["AE", "UAE"], ["SA", "Saudi Arabia"], ["CA", "Canada"], ["AU", "Australia"], ["DE", "Germany"], ["FR", "France"]];
+function getRegion() {
+  try { const r = localStorage.getItem(LS_REGION); if (r) return r; } catch (e) {}
+  const guess = ((navigator.language || "").split("-")[1] || "").toUpperCase();
+  return REGIONS.some(x => x[0] === guess) ? guess : "US";
+}
+function setRegion(r) { try { localStorage.setItem(LS_REGION, r); } catch (e) {} }
+const fmtTime = t => { t = Math.max(0, Math.floor(t)); const h = Math.floor(t / 3600), m = Math.floor(t % 3600 / 60), s = t % 60; return (h ? h + ":" + String(m).padStart(2, "0") : m) + ":" + String(s).padStart(2, "0"); };
+function continueRow() {
+  const items = Object.values(progAll()).sort((a, b) => b.ts - a.ts).slice(0, 15);
+  if (!items.length) return "";
+  const cards = items.map(x => `
+    <a class="card" href="#/free/${encodeURIComponent(x.id)}">
+      <img class="poster" loading="lazy" src="https://archive.org/services/img/${encodeURIComponent(x.id)}" alt="${esc(x.title)}">
+      <div class="prog"><i style="width:${Math.min(100, Math.round(x.t / (x.d || 1) * 100))}%"></i></div>
+      <div class="ct">${esc(x.title)}</div>
+      <div class="cs">Resume at ${fmtTime(x.t)}</div>
+    </a>`).join("");
+  return `<section class="section"><h2>Continue Watching</h2><div class="row">${cards}</div></section>`;
 }
 
 /* ---------- api ---------- */
@@ -128,7 +158,7 @@ async function viewHome() {
 
   const chips = `<div class="chips">${g.movie.map(x => `<a class="chip" href="#/search?type=movie&genre=${x.id}">${esc(x.name)}</a>`).join("")}</div>`;
 
-  app.innerHTML = hero + chips +
+  app.innerHTML = hero + chips + continueRow() +
     rowHTML("Trending This Week", trending.results, null, "#/search?sort=popularity.desc") +
     rowHTML("Now in Cinemas", nowM.results, "movie") +
     rowHTML("Popular Movies", popM.results, "movie", "#/search?type=movie&sort=popularity.desc") +
@@ -201,10 +231,32 @@ async function viewSearch(p) {
   $("#nextPg").addEventListener("click", () => { go(page + 1); window.scrollTo(0, 0); });
 }
 
+function watchHTML(d) {
+  const all = (d["watch/providers"] && d["watch/providers"].results) || {};
+  const want = getRegion();
+  let code = want, r = all[code], note = "";
+  if (!r) {
+    code = all.US ? "US" : Object.keys(all)[0];
+    r = code ? all[code] : null;
+    if (r) note = `Not listed in ${want}. Showing ${code}.`;
+  }
+  const picker = `<select id="regionSel" aria-label="Country">${REGIONS.map(([c, n]) => `<option value="${c}" ${c === want ? "selected" : ""}>${n}</option>`).join("")}</select>`;
+  const groups = [["flatrate", "Stream"], ["free", "Free"], ["ads", "Free with ads"], ["rent", "Rent"], ["buy", "Buy"]];
+  let body = "";
+  if (r) {
+    groups.forEach(([k, label]) => {
+      if (!r[k] || !r[k].length) return;
+      body += `<div class="ww-group"><b>${label}</b><div class="ww-logos">${r[k].map(p => `<a href="${esc(r.link || "#")}" target="_blank" rel="noopener" title="${esc(p.provider_name)}"><img src="${IMG}w92${p.logo_path}" alt="${esc(p.provider_name)}"></a>`).join("")}</div></div>`;
+    });
+  }
+  if (!body) body = '<div class="ww-none">No streaming info available for this title yet.</div>';
+  return `<div class="ww-top">${picker}${note ? `<span class="ww-note">${esc(note)}</span>` : ""}</div>${body}<div class="ww-credit">Streaming data by JustWatch</div>`;
+}
+
 async function viewDetail(type, id) {
   setActiveNav("");
   loading();
-  const d = await tmdb(`/${type}/${id}`, { append_to_response: "videos,credits,similar" });
+  const d = await tmdb(`/${type}/${id}`, { append_to_response: "videos,credits,similar,watch/providers" });
   const title = d.title || d.name;
   const date = d.release_date || d.first_air_date;
   const item = { id: d.id, type, title, poster: d.poster_path, date: date || "", rating: d.vote_average };
@@ -246,6 +298,7 @@ async function viewDetail(type, id) {
       ${d.homepage ? `<a class="btn ghost" href="${esc(d.homepage)}" target="_blank" rel="noopener">Official Site</a>` : ""}
     </div>
     <div class="facts">${facts.map(([k, v]) => `<div class="fact"><b>${k}</b><span>${esc(v)}</span></div>`).join("")}</div>
+    <section class="section"><h2>Where to Watch</h2><div id="wwBox" class="ww"></div></section>
     ${cast.length ? `<section class="section"><h2>Top Cast</h2><div class="row">${cast.map(c => `
       <div class="cast">
         ${c.profile_path ? `<img loading="lazy" src="${IMG}w185${c.profile_path}" alt="${esc(c.name)}">` : '<div class="cph">&#9786;</div>'}
@@ -253,6 +306,11 @@ async function viewDetail(type, id) {
       </div>`).join("")}</div></section>` : ""}
     ${rowHTML("More Like This", d.similar && d.similar.results, type)}
   `;
+
+  const wwBox = $("#wwBox");
+  const drawWatch = () => { wwBox.innerHTML = watchHTML(d); };
+  drawWatch();
+  wwBox.addEventListener("change", e => { if (e.target.id === "regionSel") { setRegion(e.target.value); drawWatch(); } });
 
   const listBtn = $("#listBtn");
   const refresh = () => {
@@ -281,14 +339,23 @@ function viewWatchlist() {
 }
 
 /* ---------- free movies (Internet Archive, public domain) ---------- */
+const FREE_CATS = {
+  movies: ["Movies", "collection:feature_films AND mediatype:movies"],
+  cartoons: ["Cartoons", "collection:animationandcartoons AND mediatype:movies"],
+  tv: ["TV Classics", "collection:classic_tv AND mediatype:movies"],
+  docs: ["Documentaries", "collection:moviesandfilms AND subject:documentary AND mediatype:movies"],
+  silent: ["Silent Films", "collection:silent_films AND mediatype:movies"]
+};
+
 async function viewFree(p) {
   setActiveNav("free");
   document.title = "Free Movies - CineBox";
   loading();
   const q = p.get("q") || "";
+  const cat = FREE_CATS[p.get("cat")] ? p.get("cat") : "movies";
   const page = Math.max(1, parseInt(p.get("page") || "1", 10));
   const rows = 30;
-  let query = "collection:feature_films AND mediatype:movies";
+  let query = FREE_CATS[cat][1];
   if (q) query += ` AND title:(${q.replace(/[^\w\s]/g, " ")})`;
   const u = new URL("https://archive.org/advancedsearch.php");
   u.searchParams.set("q", query);
@@ -310,45 +377,100 @@ async function viewFree(p) {
     </a>`).join("");
 
   app.innerHTML = `
-    <h1 class="page-title page-pad" style="padding-bottom:4px">Free Movies</h1>
-    <div class="page-pad" style="color:var(--muted);font-size:13px;padding-top:0">Public-domain and openly licensed feature films, streamed from the Internet Archive.</div>
-    <form class="filters" id="freeForm"><input class="wide" name="q" placeholder="Search free movies..." value="${esc(q)}"></form>
-    ${cards ? `<div class="grid">${cards}</div>` : '<div class="empty">No free movies found for that search.</div>'}
+    <div class="free-head">
+      <h1>Free Movies</h1>
+      <p>Public-domain classics you can watch right here.</p>
+    </div>
+    <div class="chips free-tabs">${Object.entries(FREE_CATS).map(([k, v]) => `<a class="chip${k === cat ? " sel" : ""}" href="#/free?cat=${k}">${v[0]}</a>`).join("")}</div>
+    ${page === 1 && !q ? continueRow() : ""}
+    <form class="free-search" id="freeForm">
+      <input type="search" name="q" placeholder="Search free movies..." value="${esc(q)}" aria-label="Search free movies">
+      <button class="btn" type="submit">Search</button>
+    </form>
+    ${cards ? `<div class="grid free-grid">${cards}</div>` : '<div class="empty">No free movies found for that search.</div>'}
     <div class="pager">
       <button class="btn ghost" id="fPrev" ${page <= 1 ? "disabled" : ""}>&lsaquo; Prev</button>
-      <span>Page ${page} of ${pages}</span>
+      <span>${page} / ${pages}</span>
       <button class="btn ghost" id="fNext" ${page >= pages ? "disabled" : ""}>Next &rsaquo;</button>
     </div>`;
 
   const go = pg => {
     const np = new URLSearchParams();
     const v = $("#freeForm input").value.trim();
+    if (cat !== "movies") np.set("cat", cat);
     if (v) np.set("q", v);
     if (pg > 1) np.set("page", pg);
     location.hash = "#/free" + (np.toString() ? "?" + np.toString() : "");
   };
   $("#freeForm").addEventListener("submit", e => { e.preventDefault(); go(1); });
-  $("#fPrev").addEventListener("click", () => { go(page - 1); window.scrollTo(0, 0); });
-  $("#fNext").addEventListener("click", () => { go(page + 1); window.scrollTo(0, 0); });
+  $("#fPrev").addEventListener("click", () => go(page - 1));
+  $("#fNext").addEventListener("click", () => go(page + 1));
 }
+
+function archiveVideos(files) {
+  const isVid = f => /\.(mp4|m4v|webm|ogv)$/i.test(f.name || "");
+  const all = (files || []).filter(isVid);
+  const good = all.filter(f => /h\.?264|mpeg4/i.test(f.format || ""));
+  const list = (good.length ? good : all).filter(f => !/_512kb|_thumb|sample|trailer/i.test(f.name));
+  const seen = new Set();
+  return list.filter(f => !seen.has(f.name) && seen.add(f.name)).slice(0, 12);
+}
+const archiveUrl = (id, name) => "https://archive.org/download/" + encodeURIComponent(id) + "/" + name.split("/").map(encodeURIComponent).join("/");
 
 async function viewFreePlayer(id) {
   setActiveNav("free");
   loading();
   const r = await fetch("https://archive.org/metadata/" + encodeURIComponent(id));
   if (!r.ok) throw new Error("Archive error " + r.status);
-  const m = (await r.json()).metadata || {};
+  const j = await r.json();
+  const m = j.metadata || {};
   const title = Array.isArray(m.title) ? m.title[0] : m.title || id;
   let desc = Array.isArray(m.description) ? m.description.join(" ") : m.description || "";
   desc = desc.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
   document.title = title + " - CineBox";
+  const vids = archiveVideos(j.files);
+  const saved = progAll()[id];
+  const startI = saved && saved.i < vids.length ? saved.i : 0;
+  const poster = "https://archive.org/services/img/" + encodeURIComponent(id);
+
   app.innerHTML = `
-    <div class="page-pad"><a href="#/free" class="chip">&lsaquo; All free movies</a></div>
-    <div class="player"><div class="frame"><iframe src="https://archive.org/embed/${encodeURIComponent(id)}" allowfullscreen allow="fullscreen"></iframe></div></div>
-    <h1 class="page-title page-pad" style="margin-bottom:0">${esc(title)}</h1>
-    <div class="meta page-pad" style="padding-top:4px">${m.year ? `<span>${esc(m.year)}</span>` : ""}${m.creator ? `<span>${esc(Array.isArray(m.creator) ? m.creator[0] : m.creator)}</span>` : ""}<span class="badge">Free</span></div>
+    <div class="back-row"><a href="#/free" class="chip">&lsaquo; All free movies</a></div>
+    <div class="player"><div class="frame" id="frame"></div></div>
+    ${vids.length > 1 ? `<div class="parts" id="parts">${vids.map((v, i) => `<button class="chip${i === startI ? " sel" : ""}" data-i="${i}">${esc(v.name.replace(/\.[^.]+$/, "").slice(-28))}</button>`).join("")}</div>` : ""}
+    <h1 class="free-title">${esc(title)}</h1>
+    <div class="meta free-meta">${m.year ? `<span>${esc(m.year)}</span>` : ""}${m.creator ? `<span>${esc(Array.isArray(m.creator) ? m.creator[0] : m.creator)}</span>` : ""}<span class="badge">Free</span></div>
     <p class="overview">${esc(desc.slice(0, 900)) || "No description available."}</p>
     <div class="detail-actions btn-row"><a class="btn ghost" target="_blank" rel="noopener" href="https://archive.org/details/${encodeURIComponent(id)}">Open on Internet Archive</a></div>`;
+
+  const frame = $("#frame");
+  const useEmbed = () => { frame.innerHTML = `<iframe src="https://archive.org/embed/${encodeURIComponent(id)}" allowfullscreen allow="fullscreen"></iframe>`; };
+  const playFile = i => {
+    frame.innerHTML = `<video controls playsinline preload="metadata" poster="${poster}" src="${archiveUrl(id, vids[i].name)}"></video>`;
+    const v = $("video", frame);
+    v.addEventListener("error", useEmbed, { once: true });
+    v.addEventListener("loadedmetadata", () => {
+      const s2 = progAll()[id];
+      if (s2 && s2.i === i && s2.t > 10 && s2.t < v.duration - 30) v.currentTime = s2.t;
+    }, { once: true });
+    let last = 0;
+    const store = () => {
+      if (!v.duration || !isFinite(v.duration)) return;
+      if (v.currentTime / v.duration > 0.95) { progSet(id, null); return; }
+      if (v.currentTime > 10) progSet(id, { id, title, i, t: v.currentTime, d: v.duration, ts: Date.now() });
+    };
+    v.addEventListener("timeupdate", () => { const n = Date.now(); if (n - last > 5000) { last = n; store(); } });
+    v.addEventListener("pause", store);
+    v.addEventListener("ended", () => progSet(id, null));
+  };
+  if (vids.length) playFile(startI); else useEmbed();
+
+  const parts = $("#parts");
+  if (parts) parts.addEventListener("click", e => {
+    const b = e.target.closest("button[data-i]");
+    if (!b) return;
+    parts.querySelectorAll(".chip").forEach(c => c.classList.toggle("sel", c === b));
+    playFile(+b.dataset.i);
+  });
 }
 
 /* ---------- router ---------- */

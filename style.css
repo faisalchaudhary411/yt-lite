@@ -140,3 +140,44 @@ button,input,select{font:inherit;color:inherit}
   .detail-head h1{font-size:36px}
   .facts{grid-template-columns:repeat(4,1fr)}
 }
+
+/* free movies */
+.free-head{padding:16px 14px 4px}
+.free-head h1{font-size:22px}
+.free-head p{color:var(--muted);font-size:13px}
+.free-search{display:flex;gap:8px;padding:12px 14px}
+.free-search input{flex:1;min-width:0;padding:10px 14px;border-radius:999px;border:1px solid var(--line);background:var(--bg3);outline:none}
+.free-search input:focus{border-color:var(--accent)}
+.free-grid{grid-template-columns:repeat(2,1fr);gap:12px}
+.back-row{padding:12px 14px 10px}
+.free-title{font-size:20px;line-height:1.25;padding:14px 14px 0}
+.free-meta{padding:6px 14px 0}
+.player .frame video{position:absolute;inset:0;width:100%;height:100%;background:#000}
+.parts{display:flex;gap:8px;overflow-x:auto;padding:10px 14px 0;scrollbar-width:none}
+.parts::-webkit-scrollbar{display:none}
+.chip.sel{background:var(--accent);border-color:var(--accent);color:#fff}
+@media(min-width:700px){
+  .free-head,.free-search,.back-row,.free-title,.free-meta,.parts{padding-left:24px;padding-right:24px}
+  .free-search{max-width:560px}
+  .free-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:16px}
+  .free-head h1{font-size:30px}
+}
+
+/* continue watching */
+.card .prog{position:absolute;left:0;right:0;top:0;aspect-ratio:2/3;pointer-events:none;display:flex;align-items:flex-end;border-radius:var(--radius);overflow:hidden}
+.card .prog i{display:block;height:4px;background:var(--accent)}
+.free-tabs{padding-top:4px}
+
+/* where to watch */
+.ww{padding:0 14px}
+.ww-top{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
+.ww-top select{padding:8px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg3);outline:none}
+.ww-top select option{background:var(--bg2)}
+.ww-note{font-size:12px;color:var(--muted)}
+.ww-group{margin-bottom:10px}
+.ww-group b{display:block;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px}
+.ww-logos{display:flex;gap:8px;flex-wrap:wrap}
+.ww-logos img{width:46px;height:46px;border-radius:10px}
+.ww-none{color:var(--muted);font-size:14px}
+.ww-credit{font-size:11px;color:var(--muted);margin-top:4px}
+@media(min-width:700px){.ww{padding:0 24px}}
