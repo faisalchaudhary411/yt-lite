@@ -1,7 +1,7 @@
 /* CineBox - movie & TV discovery site (TMDB + Internet Archive) */
 
 // 1) Get a free key at https://www.themoviedb.org/settings/api  (use the "API Key (v3 auth)")
-const API_KEY = "287598b45b83e34757c15c1f9baf343c";
+const API_KEY = "PASTE_YOUR_TMDB_API_KEY_HERE";
 
 const API = "https://api.themoviedb.org/3";
 const IMG = "https://image.tmdb.org/t/p/";
@@ -52,13 +52,16 @@ function continueRow() {
   const items = Object.values(progAll()).sort((a, b) => b.ts - a.ts).slice(0, 15);
   if (!items.length) return "";
   const cards = items.map(x => `
-    <a class="card" href="#/free/${encodeURIComponent(x.id)}">
-      <img class="poster" loading="lazy" src="https://archive.org/services/img/${encodeURIComponent(x.id)}" alt="${esc(x.title)}">
+    <div class="card">
+      <a href="#/free/${encodeURIComponent(x.id)}">
+        <img class="poster" loading="lazy" src="https://archive.org/services/img/${encodeURIComponent(x.id)}" alt="${esc(x.title)}">
+        <div class="ct">${esc(x.title)}</div>
+        <div class="cs">Resume at ${fmtTime(x.t)}</div>
+      </a>
       <div class="prog"><i style="width:${Math.min(100, Math.round(x.t / (x.d || 1) * 100))}%"></i></div>
-      <div class="ct">${esc(x.title)}</div>
-      <div class="cs">Resume at ${fmtTime(x.t)}</div>
-    </a>`).join("");
-  return `<section class="section"><h2>Continue Watching</h2><div class="row">${cards}</div></section>`;
+      <button class="rm" type="button" data-rm="${esc(x.id)}" aria-label="Remove from Continue Watching">&times;</button>
+    </div>`).join("");
+  return `<section class="section" data-prog-section><h2>Continue Watching <a href="#" data-clear-prog>Clear all</a></h2><div class="row">${cards}</div></section>`;
 }
 
 /* ---------- api ---------- */
@@ -506,6 +509,22 @@ $("#topSearch").addEventListener("submit", e => {
   e.preventDefault();
   const v = $("#topSearchInput").value.trim();
   if (v) { location.hash = "#/search?q=" + encodeURIComponent(v); $("#topSearchInput").blur(); }
+});
+
+document.addEventListener("click", e => {
+  const rm = e.target.closest("[data-rm]");
+  const clr = e.target.closest("[data-clear-prog]");
+  if (rm) {
+    e.preventDefault();
+    progSet(rm.dataset.rm, null);
+    const sec = rm.closest("[data-prog-section]");
+    rm.closest(".card").remove();
+    if (sec && !sec.querySelector(".card")) sec.remove();
+  } else if (clr) {
+    e.preventDefault();
+    try { localStorage.removeItem(LS_PROG); } catch (err) {}
+    document.querySelectorAll("[data-prog-section]").forEach(x => x.remove());
+  }
 });
 
 window.addEventListener("hashchange", route);

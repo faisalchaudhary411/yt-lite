@@ -6,7 +6,11 @@
 <meta name="theme-color" content="#0b0b10">
 <meta name="description" content="CineBox - discover movies and TV shows, watch trailers, build your watchlist and stream free public-domain classics.">
 <title>CineBox - Discover Movies & TV</title>
-<link rel="stylesheet" href="style.css">
+<script>
+/* Cache busting: always fetch the latest style.css and app.js */
+window.__v = Date.now();
+document.write('<link rel="stylesheet" href="style.css?v=' + window.__v + '">');
+</script>
 </head>
 <body>
 
@@ -46,6 +50,6 @@
   <a href="https://archive.org" target="_blank" rel="noopener">Internet Archive</a>.
 </footer>
 
-<script src="app.js"></script>
+<script>document.write('<script src="app.js?v=' + window.__v + '"><\/script>');</script>
 </body>
 </html>
