@@ -1,7 +1,7 @@
 /* CineBox - movie & TV discovery site (TMDB + Internet Archive) */
 
 // 1) Get a free key at https://www.themoviedb.org/settings/api  (use the "API Key (v3 auth)")
-const API_KEY = "PASTE_YOUR_TMDB_API_KEY_HERE";
+const API_KEY = "287598b45b83e34757c15c1f9baf343c";
 
 const API = "https://api.themoviedb.org/3";
 const IMG = "https://image.tmdb.org/t/p/";
