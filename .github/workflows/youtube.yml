@@ -1,1 +1,28 @@
-[]
+name: Update YouTube free videos
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Fetch videos
+        env:
+          YT_API_KEY: ${{ secrets.YT_API_KEY }}
+        run: node scripts/fetch-youtube.js
+      - name: Commit changes
+        run: |
+          git config user.name "cinebox-bot"
+          git config user.email "cinebox-bot@users.noreply.github.com"
+          git add data/youtube.json
+          git diff --cached --quiet || (git commit -m "Update YouTube videos" && git push)
