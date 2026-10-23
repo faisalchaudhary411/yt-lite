@@ -1,1 +1,94 @@
-{}
+{
+ "@HUMTV": {
+  "id": "UCEeEQxm6qc_qaTE7qTV5aLQ",
+  "title": "HUM TV"
+ },
+ "@arydigital": {
+  "id": "UC4JCksJF76g_MdzPVBJoC3Q",
+  "title": "ARY Digital HD"
+ },
+ "@GeoEntertainment": {
+  "id": "UC_BHj2jZvrPJVr8KYso86YA",
+  "title": "geoentertainment"
+ },
+ "Green Entertainment": {
+  "id": "UCEyIUL3F0NVEf15eGuJgBaQ",
+  "title": "Green Entertainment"
+ },
+ "Aplus Entertainment": {
+  "id": "UCdmkPG3FG48A27-PrD-lC8A",
+  "title": "A Plus Entertainment"
+ },
+ "Shemaroo Movies": {
+  "id": "UCBOmfqgTZi7yDp4-3Lr_3lA",
+  "title": "Shemaroo Movies"
+ },
+ "Goldmines": {
+  "id": "UCyoXW-Dse7fURq30EWl_CUA",
+  "title": "Goldmines"
+ },
+ "Ultra Movie Parlour": {
+  "id": "UCYauDsl-rswjQGpA0_-Z9Pw",
+  "title": "Ultra Movie Parlour"
+ },
+ "Pen Movies": {
+  "id": "UC3ar28GS6o1p0m_wabfk2zw",
+  "title": "Pen Movies"
+ },
+ "Rajshri": {
+  "id": "UCEKWXRsfUHkan-D_ljU8Asw",
+  "title": "Rajshri"
+ },
+ "Venus Movies": {
+  "id": "UCpcsv3Ow-8IhoUGDEfPetsQ",
+  "title": "Venus Movies"
+ },
+ "FilmRise Movies": {
+  "id": "UC8IHAQMuiJdY6ALuhG7iU8Q",
+  "title": "FilmRise Movies"
+ },
+ "Popcornflix": {
+  "id": "UCVFYikepF-avelvuIaQ_lHA",
+  "title": "Popcornflix"
+ },
+ "Timeless Classic Movies": {
+  "id": "UCOg0aMAXmF3o5m243PxhE5g",
+  "title": "Timeless Classic Movies"
+ },
+ "Cinema Quest": {
+  "id": "UCxyHMMtU6tNkt4aXj1ByY-Q",
+  "title": "Cinema Quest"
+ },
+ "@DWDocumentary": {
+  "id": "UCW39zufHfsuGgpLviKh297Q",
+  "title": "DW Documentary"
+ },
+ "Real Stories": {
+  "id": "UCu4XcDBdnZkV6-5z2f16M0g",
+  "title": "Real Stories"
+ },
+ "Free Documentary": {
+  "id": "UCijcd0GR0fkxCAZwkiuWqtQ",
+  "title": "Free Documentary"
+ },
+ "Masha and The Bear": {
+  "id": "UCu59yAFE8fM0sVNTipR4edw",
+  "title": "Masha and The Bear"
+ },
+ "Peppa Pig - Official Channel": {
+  "id": "UCAOtE1V7Ots4DjM8JLlrYgg",
+  "title": "Peppa Pig - Official Channel"
+ },
+ "Cocomelon - Nursery Rhymes": {
+  "id": "UCbCmjCuTUZos6Inko4u57UQ",
+  "title": "Cocomelon - Nursery Rhymes"
+ },
+ "Muse Asia": {
+  "id": "UCGbshtvS9t-8CW11W7TooQg",
+  "title": "Muse Asia"
+ },
+ "Ani-One Asia": {
+  "id": "UC0wNSTMWIL3qaorLx0jie6A",
+  "title": "Ani-One Asia"
+ }
+}
