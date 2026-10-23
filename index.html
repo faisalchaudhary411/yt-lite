@@ -4,6 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0b0b10">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta property="og:type" content="website">
+<meta property="og:title" content="CineBox - Discover Movies & TV">
+<meta property="og:description" content="Trending movies and TV, trailers, where to watch, and free full-length films you can watch right now.">
+<meta property="og:image" content="icons/icon-512.png">
+<meta name="twitter:card" content="summary">
 <meta name="description" content="CineBox - discover movies and TV shows, watch trailers, build your watchlist and stream free public-domain classics.">
 <title>CineBox - Discover Movies & TV</title>
 <script>
@@ -24,7 +33,9 @@ document.write('<link rel="stylesheet" href="style.css?v=' + window.__v + '">');
   </nav>
   <form id="topSearch" class="top-search" autocomplete="off">
     <input type="search" id="topSearchInput" placeholder="Search movies & TV..." aria-label="Search">
+    <div id="suggest" class="suggest hidden"></div>
   </form>
+  <button id="installBtn" class="install hidden" type="button">Install</button>
 </header>
 
 <main id="app"></main>
@@ -44,8 +55,10 @@ document.write('<link rel="stylesheet" href="style.css?v=' + window.__v + '">');
 </div>
 
 <footer class="footer">
-  Cine Box did not host or owned any content.
-  All content is from public domains and from TMDB.
+  CineBox does not host or stream copyrighted content. Movie data and images by
+  <a href="https://www.themoviedb.org" target="_blank" rel="noopener">TMDB</a>.
+  Free movies are public-domain titles from the
+  <a href="https://archive.org" target="_blank" rel="noopener">Internet Archive</a>.
 </footer>
 
 <script>document.write('<script src="app.js?v=' + window.__v + '"><\/script>');</script>

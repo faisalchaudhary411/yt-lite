@@ -18,7 +18,7 @@ button,input,select{font:inherit;color:inherit}
 .desk-nav{display:none;gap:18px;margin-left:10px}
 .desk-nav a{color:var(--muted);font-weight:600;font-size:15px}
 .desk-nav a.active,.desk-nav a:hover{color:var(--text)}
-.top-search{flex:1;max-width:420px;margin-left:auto}
+.top-search{position:relative;flex:1;min-width:0;max-width:420px;margin-left:auto}
 .top-search input{width:100%;padding:9px 14px;border-radius:999px;border:1px solid var(--line);background:var(--bg3);outline:none}
 .top-search input:focus{border-color:var(--accent)}
 
@@ -190,3 +190,36 @@ button,input,select{font:inherit;color:inherit}
 .free-search .btn{flex:0 0 auto}
 .player,.player .frame{max-width:100%}
 .free-title,.overview{overflow-wrap:anywhere}
+
+/* hero carousel */
+.hero{transition:background-image .4s}
+.hero-dots{position:absolute;z-index:2;right:14px;bottom:10px;display:flex;gap:6px}
+.hero-dots button{width:8px;height:8px;border-radius:50%;border:0;background:#ffffff55;padding:0;cursor:pointer}
+.hero-dots button.on{background:#fff;width:20px;border-radius:6px}
+
+/* tonight's pick */
+.pick{position:relative;display:block;margin:0 14px;min-height:190px;border-radius:var(--radius);background-size:cover;background-position:center;overflow:hidden}
+.pick::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#0b0b10f2 10%,#0b0b1099 60%,#0b0b1033)}
+.pick-in{position:relative;z-index:1;padding:16px;max-width:520px}
+.pick-in h3{font-size:22px;margin:8px 0 4px}
+.pick-in p{font-size:13px;color:#d6d6e0;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.chip.surprise{background:var(--accent);border-color:var(--accent);color:#fff}
+
+/* youtube cards */
+.card.wide .poster{aspect-ratio:16/9}
+.card .tag.dur{left:auto;right:6px;color:#fff;font-weight:600}
+.row .card.wide{flex-basis:210px}
+.yt-grid{grid-template-columns:repeat(1,minmax(0,1fr))}
+@media(min-width:480px){.yt-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* search suggestions + install */
+.suggest{position:absolute;left:0;right:0;top:calc(100% + 6px);z-index:80;background:var(--bg2);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:0 12px 30px #000a}
+.suggest a{display:flex;gap:10px;align-items:center;padding:8px 10px;border-bottom:1px solid var(--line)}
+.suggest a:last-child{border-bottom:0}
+.suggest a:hover{background:var(--bg3)}
+.suggest img,.suggest .sph{width:34px;height:50px;border-radius:6px;object-fit:cover;background:var(--bg3);flex:0 0 auto}
+.suggest span{min-width:0}
+.suggest b{display:block;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.suggest small{color:var(--muted);font-size:12px}
+.install{flex:0 0 auto;padding:7px 12px;border-radius:999px;border:1px solid var(--accent);background:none;color:var(--accent2);font-weight:700;font-size:13px;cursor:pointer}
+@media(min-width:700px){.pick{margin:0 24px}.hero-dots{right:24px}}

@@ -1,7 +1,7 @@
 /* CineBox - movie & TV discovery site (TMDB + Internet Archive) */
 
 // 1) Get a free key at https://www.themoviedb.org/settings/api  (use the "API Key (v3 auth)")
-const API_KEY = "287598b45b83e34757c15c1f9baf343c";
+const API_KEY = "PASTE_YOUR_TMDB_API_KEY_HERE";
 
 const API = "https://api.themoviedb.org/3";
 const IMG = "https://image.tmdb.org/t/p/";
@@ -131,43 +131,102 @@ function playTrailer(key) {
 }
 
 /* ---------- views ---------- */
+const MOODS = {
+  feelgood: { label: "Feel-good", g: "35|10751" },
+  thrilling: { label: "Edge of your seat", g: "53|28" },
+  romantic: { label: "Romantic", g: "10749" },
+  mind: { label: "Mind-bending", g: "878|9648" },
+  scary: { label: "Scary night", g: "27" },
+  family: { label: "Family time", g: "16|10751" },
+  epic: { label: "Epic adventure", g: "12|14" },
+  real: { label: "True stories", g: "36|99" }
+};
+
+let heroTimer = null;
+
+function heroInner(it) {
+  const t = it.title || it.name;
+  return `<div class="meta"><span class="rating">&#9733; ${stars(it.vote_average)}</span>
+      <span>${year(it.release_date || it.first_air_date)}</span>
+      <span class="badge">${it.media_type === "tv" ? "TV Series" : "Movie"}</span></div>
+    <h1>${esc(t)}</h1>
+    <p>${esc(it.overview)}</p>
+    <div class="btn-row"><a class="btn" href="#/${it.media_type}/${it.id}">&#9654; Details &amp; Trailer</a></div>`;
+}
+
 async function viewHome() {
   setActiveNav("home");
   loading();
-  const [trending, popM, topM, popT, topT, nowM, g] = await Promise.all([
+  const [trending, popM, topM, popT, topT, nowM, soon, gems, g] = await Promise.all([
     tmdb("/trending/all/week"),
     tmdb("/movie/popular"),
     tmdb("/movie/top_rated"),
     tmdb("/tv/popular"),
     tmdb("/tv/top_rated"),
     tmdb("/movie/now_playing"),
+    tmdb("/movie/upcoming"),
+    tmdb("/discover/movie", { sort_by: "vote_average.desc", "vote_count.gte": 500, "vote_count.lte": 4000, "vote_average.gte": 7.4 }),
     genres()
   ]);
 
-  const heroItem = trending.results.find(x => x.backdrop_path && (x.media_type === "movie" || x.media_type === "tv"));
+  const slides = trending.results.filter(x => x.backdrop_path && (x.media_type === "movie" || x.media_type === "tv")).slice(0, 5);
+  const bg = it => `${IMG}w1280${it.backdrop_path}`;
   let hero = "";
-  if (heroItem) {
-    const t = heroItem.title || heroItem.name;
-    hero = `<section class="hero" style="background-image:url(${IMG}w1280${heroItem.backdrop_path})">
-      <div class="hero-inner">
-        <div class="meta"><span class="rating">&#9733; ${stars(heroItem.vote_average)}</span>
-          <span>${year(heroItem.release_date || heroItem.first_air_date)}</span>
-          <span class="badge">${heroItem.media_type === "tv" ? "TV Series" : "Movie"}</span></div>
-        <h1>${esc(t)}</h1>
-        <p>${esc(heroItem.overview)}</p>
-        <div class="btn-row"><a class="btn" href="#/${heroItem.media_type}/${heroItem.id}">&#9654; Details &amp; Trailer</a></div>
-      </div></section>`;
+  if (slides.length) {
+    hero = `<section class="hero" id="hero" style="background-image:url(${bg(slides[0])})">
+      <div class="hero-inner" id="heroInner">${heroInner(slides[0])}</div>
+      <div class="hero-dots" id="heroDots">${slides.map((_, i) => `<button type="button" data-i="${i}" class="${i === 0 ? "on" : ""}" aria-label="Slide ${i + 1}"></button>`).join("")}</div>
+    </section>`;
   }
 
   const chips = `<div class="chips">${g.movie.map(x => `<a class="chip" href="#/search?type=movie&genre=${x.id}">${esc(x.name)}</a>`).join("")}</div>`;
 
-  app.innerHTML = hero + chips + continueRow() +
+  const pool = [...topM.results, ...popM.results].filter(x => x.backdrop_path && x.overview);
+  let pickHTML = "";
+  if (pool.length) {
+    const pk = pool[Math.floor(Date.now() / 864e5) % pool.length];
+    pickHTML = `<section class="section"><h2>Tonight's Pick</h2>
+      <a class="pick" href="#/movie/${pk.id}" style="background-image:url(${IMG}w780${pk.backdrop_path})">
+        <div class="pick-in"><span class="badge">&#9733; ${stars(pk.vote_average)} &middot; ${year(pk.release_date)}</span>
+        <h3>${esc(pk.title)}</h3><p>${esc(pk.overview)}</p></div>
+      </a></section>`;
+  }
+
+  const moods = `<section class="section"><h2>What's your mood?</h2>
+    <div class="chips" style="padding-top:0">${Object.entries(MOODS).map(([k, m]) => `<a class="chip" href="#/search?type=movie&mood=${k}">${m.label}</a>`).join("")}<a class="chip surprise" href="#/surprise">&#127922; Surprise me</a></div></section>`;
+
+  app.innerHTML = hero + chips + continueRow() + pickHTML + moods +
     rowHTML("Trending This Week", trending.results, null, "#/search?sort=popularity.desc") +
     rowHTML("Now in Cinemas", nowM.results, "movie") +
+    rowHTML("Coming Soon", soon.results, "movie") +
     rowHTML("Popular Movies", popM.results, "movie", "#/search?type=movie&sort=popularity.desc") +
+    rowHTML("Hidden Gems", gems.results, "movie") +
     rowHTML("Top Rated Movies", topM.results, "movie", "#/search?type=movie&sort=vote_average.desc") +
     rowHTML("Popular TV Shows", popT.results, "tv", "#/search?type=tv&sort=popularity.desc") +
     rowHTML("Top Rated TV Shows", topT.results, "tv", "#/search?type=tv&sort=vote_average.desc");
+
+  if (slides.length > 1) {
+    let cur = 0;
+    const heroEl = $("#hero"), inner = $("#heroInner"), dots = $("#heroDots");
+    const show = i => {
+      cur = i;
+      heroEl.style.backgroundImage = `url(${bg(slides[i])})`;
+      inner.innerHTML = heroInner(slides[i]);
+      dots.querySelectorAll("button").forEach((b, n) => b.classList.toggle("on", n === i));
+    };
+    const start = () => { clearInterval(heroTimer); heroTimer = setInterval(() => show((cur + 1) % slides.length), 6000); };
+    dots.addEventListener("click", e => { const b = e.target.closest("button[data-i]"); if (b) { show(+b.dataset.i); start(); } });
+    start();
+  }
+}
+
+async function viewSurprise() {
+  loading();
+  const d = await tmdb("/discover/movie", { sort_by: "popularity.desc", "vote_count.gte": 1000, "vote_average.gte": 6.5, page: 1 + Math.floor(Math.random() * 25) });
+  const list = d.results.filter(x => x.poster_path);
+  const pick = list[Math.floor(Math.random() * list.length)];
+  if (!pick) { location.replace("#/"); return; }
+  location.replace("#/movie/" + pick.id);
 }
 
 async function viewSearch(p) {
@@ -176,7 +235,8 @@ async function viewSearch(p) {
   const g = await genres();
   const type = p.get("type") || "movie";
   const q = p.get("q") || "";
-  const genre = p.get("genre") || "";
+  const mood = MOODS[p.get("mood")];
+  const genre = p.get("genre") || (mood ? mood.g : "");
   const yr = p.get("year") || "";
   const minRating = p.get("rating") || "";
   const sort = p.get("sort") || "popularity.desc";
@@ -211,7 +271,7 @@ async function viewSearch(p) {
       </select>
       <select name="sort">${sorts.map(([v, l]) => `<option value="${v}" ${v === sort ? "selected" : ""}>${l}</option>`).join("")}</select>
     </form>
-    <h1 class="page-title page-pad" style="padding-bottom:0">${q ? `Results for "${esc(q)}"` : "Browse"}</h1>
+    <h1 class="page-title page-pad" style="padding-bottom:0">${q ? `Results for "${esc(q)}"` : mood ? esc(mood.label) : "Browse"}</h1>
     <div class="page-pad" style="color:var(--muted);font-size:13px;padding-top:2px">${data.total_results.toLocaleString()} titles</div>
     ${data.results.length ? `<div class="grid">${data.results.map(i => cardHTML(i, type)).join("")}</div>` : '<div class="empty">Nothing found. Try different filters.</div>'}
     <div class="pager">
@@ -298,6 +358,7 @@ async function viewDetail(type, id) {
     <div class="detail-actions btn-row">
       ${trailer ? '<button class="btn" id="trailerBtn">&#9654; Watch Trailer</button>' : ""}
       <button class="btn ghost" id="listBtn"></button>
+      <button class="btn ghost" id="shareBtn" type="button">Share</button>
       ${d.homepage ? `<a class="btn ghost" href="${esc(d.homepage)}" target="_blank" rel="noopener">Official Site</a>` : ""}
     </div>
     <div class="facts">${facts.map(([k, v]) => `<div class="fact"><b>${k}</b><span>${esc(v)}</span></div>`).join("")}</div>
@@ -323,6 +384,7 @@ async function viewDetail(type, id) {
   };
   refresh();
   listBtn.addEventListener("click", () => { toggleList(item); refresh(); });
+  bindShare($("#shareBtn"), title);
   if (trailer) $("#trailerBtn").addEventListener("click", () => playTrailer(trailer.key));
 }
 
@@ -355,7 +417,9 @@ async function viewFree(p) {
   document.title = "Free Movies - CineBox";
   loading();
   const q = p.get("q") || "";
-  const cat = FREE_CATS[p.get("cat")] ? p.get("cat") : "movies";
+  const rawCat = p.get("cat") || "";
+  if (rawCat.startsWith("yt:")) return viewYT(rawCat.slice(3), p);
+  const cat = FREE_CATS[rawCat] ? rawCat : "movies";
   const page = Math.max(1, parseInt(p.get("page") || "1", 10));
   const rows = 30;
   let query = FREE_CATS[cat][1];
@@ -379,12 +443,13 @@ async function viewFree(p) {
       <div class="cs">${esc(m.year || "Classic")} &middot; Free</div>
     </a>`).join("");
 
+  const tabsHTML = await freeTabsHTML(cat);
   app.innerHTML = `
     <div class="free-head">
       <h1>Free Movies</h1>
       <p>Public-domain classics you can watch right here.</p>
     </div>
-    <div class="chips free-tabs">${Object.entries(FREE_CATS).map(([k, v]) => `<a class="chip${k === cat ? " sel" : ""}" href="#/free?cat=${k}">${v[0]}</a>`).join("")}</div>
+    ${tabsHTML}
     ${page === 1 && !q ? continueRow() : ""}
     <form class="free-search" id="freeForm">
       <input type="search" name="q" placeholder="Search free movies..." value="${esc(q)}" aria-label="Search free movies">
@@ -443,8 +508,9 @@ async function viewFreePlayer(id) {
     <h1 class="free-title">${esc(title)}</h1>
     <div class="meta free-meta">${m.year ? `<span>${esc(m.year)}</span>` : ""}${m.creator ? `<span>${esc(Array.isArray(m.creator) ? m.creator[0] : m.creator)}</span>` : ""}<span class="badge">Free</span></div>
     <p class="overview">${esc(desc.slice(0, 900)) || "No description available."}</p>
-    <div class="detail-actions btn-row"><a class="btn ghost" target="_blank" rel="noopener" href="https://archive.org/details/${encodeURIComponent(id)}">Open on Internet Archive</a></div>`;
+    <div class="detail-actions btn-row"><button class="btn ghost" id="shareBtn" type="button">Share</button><a class="btn ghost" target="_blank" rel="noopener" href="https://archive.org/details/${encodeURIComponent(id)}">Open on Internet Archive</a></div>`;
 
+  bindShare($("#shareBtn"), title);
   const frame = $("#frame");
   const useEmbed = () => { frame.innerHTML = `<iframe src="https://archive.org/embed/${encodeURIComponent(id)}" allowfullscreen allow="fullscreen"></iframe>`; };
   const playFile = i => {
@@ -476,9 +542,103 @@ async function viewFreePlayer(id) {
   });
 }
 
+/* ---------- share ---------- */
+function bindShare(btn, title) {
+  if (!btn) return;
+  btn.addEventListener("click", async () => {
+    const url = location.href, text = title + " on CineBox";
+    if (navigator.share) { try { await navigator.share({ title, text, url }); } catch (e) {} }
+    else window.open("https://wa.me/?text=" + encodeURIComponent(text + " " + url), "_blank", "noopener");
+  });
+}
+
+/* ---------- YouTube free section (data/youtube.json built by GitHub Action) ---------- */
+let ytP = null;
+function loadYT() {
+  if (!ytP) ytP = fetch("data/youtube.json?v=" + Date.now()).then(r => r.ok ? r.json() : null).catch(() => null);
+  return ytP;
+}
+
+async function freeTabsHTML(active) {
+  const yt = await loadYT();
+  const tabs = Object.entries(FREE_CATS).map(([k, v]) => [k, v[0]]);
+  if (yt && yt.categories) Object.entries(yt.categories).forEach(([k, c]) => { if (c.items && c.items.length) tabs.push(["yt:" + k, c.label]); });
+  return `<div class="chips free-tabs">${tabs.map(([k, l]) => `<a class="chip${k === active ? " sel" : ""}" href="#/free?cat=${encodeURIComponent(k)}">${esc(l)}</a>`).join("")}</div>`;
+}
+
+const ytCard = x => `<a class="card wide" href="#/yt/${encodeURIComponent(x.id)}">
+  <img class="poster" loading="lazy" src="${esc(x.thumb)}" alt="${esc(x.title)}">
+  <span class="tag dur">${fmtTime(x.dur)}</span>
+  <div class="ct">${esc(x.title)}</div>
+  <div class="cs">${esc(x.channel)}</div>
+</a>`;
+
+async function viewYT(key, p) {
+  const yt = await loadYT();
+  const cat = yt && yt.categories && yt.categories[key];
+  const tabs = await freeTabsHTML("yt:" + key);
+  const q = (p.get("q") || "").trim();
+  const page = Math.max(1, parseInt(p.get("page") || "1", 10));
+  const per = 24;
+  let items = cat ? cat.items : [];
+  if (q) items = items.filter(i => i.title.toLowerCase().includes(q.toLowerCase()));
+  const pages = Math.max(1, Math.ceil(items.length / per));
+  const slice = items.slice((page - 1) * per, page * per);
+
+  app.innerHTML = `
+    <div class="free-head"><h1>${esc(cat ? cat.label : "Free")}</h1>
+      <p>Full-length videos from official channels and Creative Commons uploads. Played through YouTube.</p></div>
+    ${tabs}
+    <form class="free-search" id="freeForm">
+      <input type="search" name="q" placeholder="Search in this list..." value="${esc(q)}" aria-label="Search">
+      <button class="btn" type="submit">Search</button>
+    </form>
+    ${slice.length ? `<div class="grid free-grid yt-grid">${slice.map(ytCard).join("")}</div>` : '<div class="empty">Nothing here yet.</div>'}
+    <div class="pager">
+      <button class="btn ghost" id="fPrev" ${page <= 1 ? "disabled" : ""}>&lsaquo; Prev</button>
+      <span>${page} / ${pages}</span>
+      <button class="btn ghost" id="fNext" ${page >= pages ? "disabled" : ""}>Next &rsaquo;</button>
+    </div>`;
+
+  const go = pg => {
+    const np = new URLSearchParams({ cat: "yt:" + key });
+    const v = $("#freeForm input").value.trim();
+    if (v) np.set("q", v);
+    if (pg > 1) np.set("page", pg);
+    location.hash = "#/free?" + np.toString();
+  };
+  $("#freeForm").addEventListener("submit", e => { e.preventDefault(); go(1); });
+  $("#fPrev").addEventListener("click", () => go(page - 1));
+  $("#fNext").addEventListener("click", () => go(page + 1));
+}
+
+async function viewYTPlayer(id) {
+  setActiveNav("free");
+  if (!/^[\w-]{6,20}$/.test(id)) { location.replace("#/free"); return; }
+  const yt = await loadYT();
+  let item = null, catKey = "";
+  if (yt && yt.categories) Object.entries(yt.categories).forEach(([k, c]) => { const f = (c.items || []).find(x => x.id === id); if (f && !item) { item = f; catKey = k; } });
+  const title = item ? item.title : "Video";
+  document.title = title + " - CineBox";
+  const more = item ? yt.categories[catKey].items.filter(x => x.id !== id).slice(0, 12) : [];
+  app.innerHTML = `
+    <div class="back-row"><a href="#/free${catKey ? "?cat=" + encodeURIComponent("yt:" + catKey) : ""}" class="chip">&lsaquo; Back</a></div>
+    <div class="player"><div class="frame"><iframe src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(id)}?autoplay=1&rel=0" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe></div></div>
+    <h1 class="free-title">${esc(title)}</h1>
+    <div class="meta free-meta">${item ? `<span>${esc(item.channel)}</span><span>${fmtTime(item.dur)}</span>` : ""}<span class="badge">Free</span></div>
+    <div class="detail-actions btn-row" style="padding-top:12px">
+      <button class="btn ghost" id="shareBtn" type="button">Share</button>
+      <a class="btn ghost" target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=${encodeURIComponent(id)}">Open on YouTube</a>
+    </div>
+    ${more.length ? `<section class="section"><h2>More like this</h2><div class="row">${more.map(ytCard).join("")}</div></section>` : ""}`;
+  bindShare($("#shareBtn"), title);
+}
+
 /* ---------- router ---------- */
 async function route() {
   closeModal();
+  hideSuggest();
+  clearInterval(heroTimer);
   window.scrollTo(0, 0);
   document.title = "CineBox - Discover Movies & TV";
   const raw = location.hash.replace(/^#/, "") || "/";
@@ -486,7 +646,7 @@ async function route() {
   const p = new URLSearchParams(qs || "");
   const parts = path.split("/").filter(Boolean);
 
-  if (parts[0] !== "free" && parts[0] !== "watchlist" && keyMissing()) {
+  if (parts[0] !== "free" && parts[0] !== "watchlist" && parts[0] !== "yt" && keyMissing()) {
     showError('Add your TMDB API key: open <code>app.js</code> and replace <code>PASTE_YOUR_TMDB_API_KEY_HERE</code> with your free key from themoviedb.org/settings/api.');
     return;
   }
@@ -496,6 +656,8 @@ async function route() {
     else if (parts[0] === "search") await viewSearch(p);
     else if ((parts[0] === "movie" || parts[0] === "tv") && parts[1]) await viewDetail(parts[0], parts[1]);
     else if (parts[0] === "watchlist") viewWatchlist();
+    else if (parts[0] === "yt" && parts[1]) await viewYTPlayer(decodeURIComponent(parts[1]));
+    else if (parts[0] === "surprise") await viewSurprise();
     else if (parts[0] === "free" && parts[1]) await viewFreePlayer(decodeURIComponent(parts[1]));
     else if (parts[0] === "free") await viewFree(p);
     else await viewHome();
@@ -510,6 +672,50 @@ $("#topSearch").addEventListener("submit", e => {
   const v = $("#topSearchInput").value.trim();
   if (v) { location.hash = "#/search?q=" + encodeURIComponent(v); $("#topSearchInput").blur(); }
 });
+
+/* ---------- search suggestions ---------- */
+const sugBox = $("#suggest");
+const hideSuggest = () => { sugBox.classList.add("hidden"); sugBox.innerHTML = ""; };
+let sugTimer = null, sugSeq = 0;
+$("#topSearchInput").addEventListener("input", e => {
+  clearTimeout(sugTimer);
+  const v = e.target.value.trim();
+  if (v.length < 2 || keyMissing()) { hideSuggest(); return; }
+  sugTimer = setTimeout(async () => {
+    const my = ++sugSeq;
+    try {
+      const d = await tmdb("/search/multi", { query: v });
+      if (my !== sugSeq) return;
+      const rows = d.results.filter(x => x.media_type === "movie" || x.media_type === "tv").slice(0, 6);
+      if (!rows.length) { hideSuggest(); return; }
+      sugBox.innerHTML = rows.map(x => {
+        const t = x.title || x.name;
+        return `<a href="#/${x.media_type}/${x.id}">
+          ${x.poster_path ? `<img src="${IMG}w92${x.poster_path}" alt="">` : '<span class="sph"></span>'}
+          <span><b>${esc(t)}</b><small>${year(x.release_date || x.first_air_date) || "-"} &middot; ${x.media_type === "tv" ? "TV" : "Movie"}</small></span></a>`;
+      }).join("");
+      sugBox.classList.remove("hidden");
+    } catch (err) { hideSuggest(); }
+  }, 250);
+});
+sugBox.addEventListener("click", () => { hideSuggest(); $("#topSearchInput").value = ""; });
+document.addEventListener("click", e => { if (!e.target.closest("#topSearch")) hideSuggest(); });
+$("#topSearch").addEventListener("submit", hideSuggest);
+
+/* ---------- install app + offline shell ---------- */
+let installEvt = null;
+window.addEventListener("beforeinstallprompt", e => { e.preventDefault(); installEvt = e; $("#installBtn").classList.remove("hidden"); });
+$("#installBtn").addEventListener("click", async () => {
+  if (!installEvt) return;
+  installEvt.prompt();
+  try { await installEvt.userChoice; } catch (e) {}
+  installEvt = null;
+  $("#installBtn").classList.add("hidden");
+});
+window.addEventListener("appinstalled", () => $("#installBtn").classList.add("hidden"));
+if ("serviceWorker" in navigator && /^https?:$/.test(location.protocol)) {
+  window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
+}
 
 document.addEventListener("click", e => {
   const rm = e.target.closest("[data-rm]");
