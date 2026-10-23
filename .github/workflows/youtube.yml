@@ -24,5 +24,5 @@ jobs:
         run: |
           git config user.name "cinebox-bot"
           git config user.email "cinebox-bot@users.noreply.github.com"
-          git add data/youtube.json
+          git add data/youtube.json data/channels.json
           git diff --cached --quiet || (git commit -m "Update YouTube videos" && git push)
