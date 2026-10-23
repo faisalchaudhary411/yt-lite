@@ -223,3 +223,14 @@ button,input,select{font:inherit;color:inherit}
 .suggest small{color:var(--muted);font-size:12px}
 .install{flex:0 0 auto;padding:7px 12px;border-radius:999px;border:1px solid var(--accent);background:none;color:var(--accent2);font-weight:700;font-size:13px;cursor:pointer}
 @media(min-width:700px){.pick{margin:0 24px}.hero-dots{right:24px}}
+
+/* free sites directory */
+.sites{display:grid;grid-template-columns:1fr;gap:10px;padding:12px 14px}
+.site{display:block;background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius);padding:14px}
+.site:hover{border-color:var(--accent)}
+.site b{display:block;font-size:16px}
+.site small{display:block;color:var(--accent2);font-size:12px;margin-bottom:4px}
+.site span{color:var(--muted);font-size:13px}
+.sites-note{color:var(--muted);font-size:12px;padding:6px 14px 0}
+.ww-links{display:flex;gap:8px;flex-wrap:wrap}
+@media(min-width:700px){.sites{grid-template-columns:repeat(2,1fr);padding:12px 24px}.sites-note{padding:6px 24px 0}}

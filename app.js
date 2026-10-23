@@ -1,9 +1,11 @@
 /* CineBox - movie & TV discovery site (TMDB + Internet Archive) */
 
-// 1) Get a free key at https://www.themoviedb.org/settings/api  (use the "API Key (v3 auth)")
-const API_KEY = "287598b45b83e34757c15c1f9baf343c";
+// Settings live in config.js (TMDB key, optional proxy) so updating this file never touches your key.
+const CFG = window.CINEBOX_CONFIG || {};
+const API_KEY = CFG.TMDB_API_KEY || "";
+const PROXY = (CFG.TMDB_PROXY || "").replace(/\/+$/, "");
 
-const API = "https://api.themoviedb.org/3";
+const API = (PROXY || "https://api.themoviedb.org") + "/3";
 const IMG = "https://image.tmdb.org/t/p/";
 const LS_LIST = "cinebox_watchlist";
 const LS_HIST = "cinebox_history";
@@ -49,25 +51,33 @@ function getRegion() {
 function setRegion(r) { try { localStorage.setItem(LS_REGION, r); } catch (e) {} }
 const fmtTime = t => { t = Math.max(0, Math.floor(t)); const h = Math.floor(t / 3600), m = Math.floor(t % 3600 / 60), s = t % 60; return (h ? h + ":" + String(m).padStart(2, "0") : m) + ":" + String(s).padStart(2, "0"); };
 function continueRow() {
-  const items = Object.values(progAll()).sort((a, b) => b.ts - a.ts).slice(0, 15);
+  const items = Object.entries(progAll()).map(([k, x]) => ({ ...x, key: x.key || k })).sort((a, b) => b.ts - a.ts).slice(0, 15);
   if (!items.length) return "";
-  const cards = items.map(x => `
-    <div class="card">
-      <a href="#/free/${encodeURIComponent(x.id)}">
-        <img class="poster" loading="lazy" src="https://archive.org/services/img/${encodeURIComponent(x.id)}" alt="${esc(x.title)}">
+  const cards = items.map(x => {
+    const href = x.yt ? `#/yt/${encodeURIComponent(x.id)}` : `#/free/${encodeURIComponent(x.id)}`;
+    const img = x.yt ? (x.thumb || "") : `https://archive.org/services/img/${encodeURIComponent(x.id)}`;
+    return `
+    <div class="card${x.yt ? " wide" : ""}">
+      <a href="${href}">
+        <img class="poster" loading="lazy" src="${esc(img)}" alt="${esc(x.title)}">
         <div class="ct">${esc(x.title)}</div>
         <div class="cs">Resume at ${fmtTime(x.t)}</div>
       </a>
       <div class="prog"><i style="width:${Math.min(100, Math.round(x.t / (x.d || 1) * 100))}%"></i></div>
-      <button class="rm" type="button" data-rm="${esc(x.id)}" aria-label="Remove from Continue Watching">&times;</button>
-    </div>`).join("");
+      <button class="rm" type="button" data-rm="${esc(x.key)}" aria-label="Remove from Continue Watching">&times;</button>
+    </div>`;
+  }).join("");
   return `<section class="section" data-prog-section><h2>Continue Watching <a href="#" data-clear-prog>Clear all</a></h2><div class="row">${cards}</div></section>`;
 }
+
+let flushProgress = null; /* saves the current video's position right now */
+document.addEventListener("visibilitychange", () => { if (document.hidden && flushProgress) { try { flushProgress(); } catch (e) {} } });
+window.addEventListener("pagehide", () => { if (flushProgress) { try { flushProgress(); } catch (e) {} } });
 
 /* ---------- api ---------- */
 async function tmdb(path, params = {}) {
   const u = new URL(API + path);
-  u.searchParams.set("api_key", API_KEY);
+  if (!PROXY) u.searchParams.set("api_key", API_KEY);
   u.searchParams.set("language", "en-US");
   Object.entries(params).forEach(([k, v]) => { if (v !== "" && v != null) u.searchParams.set(k, v); });
   const r = await fetch(u);
@@ -88,7 +98,7 @@ function loading() { app.innerHTML = '<div class="loading"><div class="spinner">
 function showError(msg) { app.innerHTML = `<div class="notice">${msg}</div>`; }
 
 function keyMissing() {
-  return API_KEY === "PASTE_YOUR_TMDB_API_KEY_HERE";
+  return !API_KEY && !PROXY;
 }
 
 function cardHTML(it, forcedType) {
@@ -313,7 +323,12 @@ function watchHTML(d) {
     });
   }
   if (!body) body = '<div class="ww-none">No streaming info available for this title yet.</div>';
-  return `<div class="ww-top">${picker}${note ? `<span class="ww-note">${esc(note)}</span>` : ""}</div>${body}<div class="ww-credit">Streaming data by JustWatch</div>`;
+  const tt = encodeURIComponent(d.title || d.name || "");
+  const findFree = `<div class="ww-group"><b>Search for free</b><div class="ww-links">
+    <a class="chip" href="https://tubitv.com/search/${tt}" target="_blank" rel="noopener">Tubi</a>
+    <a class="chip" href="https://www.youtube.com/results?search_query=${tt}+full+movie" target="_blank" rel="noopener">YouTube</a>
+    <a class="chip" href="https://archive.org/search?query=${tt}" target="_blank" rel="noopener">Internet Archive</a></div></div>`;
+  return `<div class="ww-top">${picker}${note ? `<span class="ww-note">${esc(note)}</span>` : ""}</div>${body}${findFree}<div class="ww-credit">Streaming data by JustWatch</div>`;
 }
 
 async function viewDetail(type, id) {
@@ -527,6 +542,7 @@ async function viewFreePlayer(id) {
       if (v.currentTime / v.duration > 0.95) { progSet(id, null); return; }
       if (v.currentTime > 10) progSet(id, { id, title, i, t: v.currentTime, d: v.duration, ts: Date.now() });
     };
+    flushProgress = store;
     v.addEventListener("timeupdate", () => { const n = Date.now(); if (n - last > 5000) { last = n; store(); } });
     v.addEventListener("pause", store);
     v.addEventListener("ended", () => progSet(id, null));
@@ -563,7 +579,7 @@ async function freeTabsHTML(active) {
   const yt = await loadYT();
   const tabs = Object.entries(FREE_CATS).map(([k, v]) => [k, v[0]]);
   if (yt && yt.categories) Object.entries(yt.categories).forEach(([k, c]) => { if (c.items && c.items.length) tabs.push(["yt:" + k, c.label]); });
-  return `<div class="chips free-tabs">${tabs.map(([k, l]) => `<a class="chip${k === active ? " sel" : ""}" href="#/free?cat=${encodeURIComponent(k)}">${esc(l)}</a>`).join("")}</div>`;
+  return `<div class="chips free-tabs">${tabs.map(([k, l]) => `<a class="chip${k === active ? " sel" : ""}" href="#/free?cat=${encodeURIComponent(k)}">${esc(l)}</a>`).join("")}<a class="chip" href="#/sites">More free sites &rsaquo;</a></div>`;
 }
 
 const ytCard = x => `<a class="card wide" href="#/yt/${encodeURIComponent(x.id)}">
@@ -612,6 +628,22 @@ async function viewYT(key, p) {
   $("#fNext").addEventListener("click", () => go(page + 1));
 }
 
+let ytApiP = null;
+function loadYTApi() {
+  if (window.YT && window.YT.Player) return Promise.resolve(true);
+  if (!ytApiP) ytApiP = new Promise(res => {
+    const prev = window.onYouTubeIframeAPIReady;
+    window.onYouTubeIframeAPIReady = () => { if (prev) prev(); res(true); };
+    const sc = document.createElement("script");
+    sc.src = "https://www.youtube.com/iframe_api";
+    sc.onerror = () => res(false);
+    document.head.appendChild(sc);
+    setTimeout(() => res(!!(window.YT && window.YT.Player)), 8000);
+  });
+  return ytApiP;
+}
+let ytTimer = null;
+
 async function viewYTPlayer(id) {
   setActiveNav("free");
   if (!/^[\w-]{6,20}$/.test(id)) { location.replace("#/free"); return; }
@@ -623,7 +655,7 @@ async function viewYTPlayer(id) {
   const more = item ? yt.categories[catKey].items.filter(x => x.id !== id).slice(0, 12) : [];
   app.innerHTML = `
     <div class="back-row"><a href="#/free${catKey ? "?cat=" + encodeURIComponent("yt:" + catKey) : ""}" class="chip">&lsaquo; Back</a></div>
-    <div class="player"><div class="frame"><iframe src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(id)}?autoplay=1&rel=0" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe></div></div>
+    <div class="player"><div class="frame"><div id="ytp"></div></div></div>
     <h1 class="free-title">${esc(title)}</h1>
     <div class="meta free-meta">${item ? `<span>${esc(item.channel)}</span><span>${fmtTime(item.dur)}</span>` : ""}<span class="badge">Free</span></div>
     <div class="detail-actions btn-row" style="padding-top:12px">
@@ -632,10 +664,74 @@ async function viewYTPlayer(id) {
     </div>
     ${more.length ? `<section class="section"><h2>More like this</h2><div class="row">${more.map(ytCard).join("")}</div></section>` : ""}`;
   bindShare($("#shareBtn"), title);
+
+  const frame = $(".player .frame");
+  const plain = () => { frame.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(id)}?autoplay=1&rel=0" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`; };
+  const ok = await loadYTApi();
+  if (!$("#ytp")) return; /* user already left this page */
+  if (!ok) { plain(); return; }
+
+  const key = "yt_" + id;
+  const saved = progAll()[key];
+  let player;
+  const store = () => {
+    try {
+      const t = player.getCurrentTime(), d = player.getDuration();
+      if (!d) return;
+      if (t / d > 0.95) { progSet(key, null); return; }
+      if (t > 10) progSet(key, { key, yt: 1, id, title, thumb: item ? item.thumb : "", t, d, ts: Date.now() });
+    } catch (e) {}
+  };
+  flushProgress = store;
+  player = new YT.Player("ytp", {
+    host: "https://www.youtube-nocookie.com",
+    videoId: id,
+    playerVars: { autoplay: 1, rel: 0, playsinline: 1, start: saved && saved.t > 10 ? Math.floor(saved.t) : 0 },
+    events: {
+      onStateChange: e => {
+        if (e.data === 2) store();
+        if (e.data === 0) progSet(key, null);
+      },
+      onError: () => { clearInterval(ytTimer); plain(); }
+    }
+  });
+  clearInterval(ytTimer);
+  ytTimer = setInterval(() => {
+    if (!document.body.contains(frame)) { clearInterval(ytTimer); return; }
+    try { if (player.getPlayerState() === 1) store(); } catch (e) {}
+  }, 5000);
+}
+
+/* ---------- free streaming sites directory (links out, official sites only) ---------- */
+const FREE_SITES = [
+  { name: "Tubi", url: "https://tubitv.com", note: "Large free library with ads: movies and TV." },
+  { name: "Pluto TV", url: "https://pluto.tv", note: "Free live channels plus on-demand movies and shows." },
+  { name: "Plex (free)", url: "https://watch.plex.tv", note: "Free ad-supported movies and live TV." },
+  { name: "The Roku Channel", url: "https://therokuchannel.roku.com", note: "Free ad-supported movies and shows." },
+  { name: "YouTube Movies", url: "https://www.youtube.com/movies", note: "Has a free-with-ads section of full movies." },
+  { name: "Internet Archive", url: "https://archive.org/details/movies", note: "Public-domain films, classic TV, cartoons. Played inside CineBox's Free tab." },
+  { name: "Open Culture", url: "https://www.openculture.com/freemovies", note: "Hand-picked list of legally free classic films and documentaries." },
+  { name: "Kanopy", url: "https://www.kanopy.com", note: "Free with a participating public library or university login." }
+];
+
+function viewSites() {
+  setActiveNav("free");
+  document.title = "Free Streaming Sites - CineBox";
+  app.innerHTML = `
+    <div class="free-head"><h1>More Free Sites</h1>
+      <p>Official free streaming services. They open on their own websites, and some are only available in certain countries.</p></div>
+    <div class="sites">${FREE_SITES.map(s => `
+      <a class="site" href="${s.url}" target="_blank" rel="noopener noreferrer">
+        <b>${esc(s.name)}</b><small>${esc(s.url.replace(/^https?:\/\/(www\.)?/, ""))}</small>
+        <span>${esc(s.note)}</span>
+      </a>`).join("")}</div>
+    <p class="sites-note">CineBox only links to services that license their content. These sites don't offer embeds, so playback happens on their pages.</p>`;
 }
 
 /* ---------- router ---------- */
 async function route() {
+  if (flushProgress) { try { flushProgress(); } catch (e) {} flushProgress = null; }
+  clearInterval(ytTimer);
   closeModal();
   hideSuggest();
   clearInterval(heroTimer);
@@ -646,8 +742,8 @@ async function route() {
   const p = new URLSearchParams(qs || "");
   const parts = path.split("/").filter(Boolean);
 
-  if (parts[0] !== "free" && parts[0] !== "watchlist" && parts[0] !== "yt" && keyMissing()) {
-    showError('Add your TMDB API key: open <code>app.js</code> and replace <code>PASTE_YOUR_TMDB_API_KEY_HERE</code> with your free key from themoviedb.org/settings/api.');
+  if (parts[0] !== "free" && parts[0] !== "watchlist" && parts[0] !== "yt" && parts[0] !== "sites" && keyMissing()) {
+    showError('Add your TMDB API key: open <code>config.js</code> and put your free key (from themoviedb.org/settings/api) inside the quotes after <code>TMDB_API_KEY</code>.');
     return;
   }
 
@@ -658,6 +754,7 @@ async function route() {
     else if (parts[0] === "watchlist") viewWatchlist();
     else if (parts[0] === "yt" && parts[1]) await viewYTPlayer(decodeURIComponent(parts[1]));
     else if (parts[0] === "surprise") await viewSurprise();
+    else if (parts[0] === "sites") viewSites();
     else if (parts[0] === "free" && parts[1]) await viewFreePlayer(decodeURIComponent(parts[1]));
     else if (parts[0] === "free") await viewFree(p);
     else await viewHome();
